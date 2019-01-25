@@ -1,6 +1,5 @@
 package Airhockey;
 
 public class Client {
-	//testee
-	private static int A;
+	//Salut c'est moi	private static int A;
 }
