@@ -24,7 +24,11 @@ public class pageclient {
 
 	private JFrame frame;
 	private JTextField Message;
+<<<<<<< HEAD
 	private String TextMessage="";
+=======
+	private String TextMessage=" ";
+>>>>>>> branch 'master' of https://github.com/Falloutboy06/Air-Hockey-JAVA
 
 	/**
 	 * Launch the application.
