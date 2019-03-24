@@ -24,7 +24,7 @@ public class pageclient {
 
 	private JFrame frame;
 	private JTextField Message;
-	private String TextMessage=" ";
+	private String TextMessage="";
 
 	/**
 	 * Launch the application.
