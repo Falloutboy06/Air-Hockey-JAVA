@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class pageclient {
 
@@ -59,13 +61,13 @@ public class pageclient {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[100][500,grow][500,grow][100]", "[100,grow][50][50][300][100]"));
 		
-		JLabel lblNewLabel_1 = new JLabel("Nom Joueur 1");
+		JLabel lblNewLabel_1 = new JLabel("Votre nom");
 		frame.getContentPane().add(lblNewLabel_1, "cell 1 1,grow");
 		
 		JLabel lblNewLabel_7 = new JLabel("");
 		frame.getContentPane().add(lblNewLabel_7, "cell 1 1,grow");
 		
-		JLabel lblNewLabel_2 = new JLabel("Nom joueur 2");
+		JLabel lblNewLabel_2 = new JLabel("Nom de l'adversaire");
 		frame.getContentPane().add(lblNewLabel_2, "cell 1 1,grow");
 		
 		JLabel lblNewLabel_5 = new JLabel("Point joueur 1");
@@ -90,17 +92,19 @@ public class pageclient {
 		JLabel lblNewLabel_9 = new JLabel(new ImageIcon("./Terrain hockey.jpg"));
 		frame.getContentPane().add(lblNewLabel_9, "cell 1 3");
 		
-		JLabel Messagerie = new JLabel("Messagerie");
-		frame.getContentPane().add(Messagerie, "cell 2 3,grow");
+		JTextPane textPane = new JTextPane();
+		frame.getContentPane().add(textPane, "flowx,cell 2 3");
 		
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TextMessage=Message.getText();
-				Messagerie.setText(TextMessage);
+				
 			}
 		});
 		frame.getContentPane().add(btnNewButton, "cell 2 2");
+		
+		JTextArea Messagerie = new JTextArea();
+		frame.getContentPane().add(Messagerie, "cell 2 3,grow");
 		
 		
 	}
