@@ -1,6 +1,8 @@
 package Airhockey;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -8,6 +10,7 @@ import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,12 +26,34 @@ import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
+class TestImagePanel extends JPanel {
+	 
+	private static final long serialVersionUID = 1L;
+	private Image img;
+ 
+	public TestImagePanel(String img) {
+		this(new ImageIcon(img).getImage());
+	}
+ 
+	public TestImagePanel(Image img) {
+		this.img = img;
+		Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+		setPreferredSize(size);
+		setMinimumSize(size);
+		setMaximumSize(size);
+		setSize(size);
+		setLayout(null);
+	}
+ 
+	public void paintComponent(Graphics g) {
+		g.drawImage(img, 0, 0, null);
+	}
+}
+
 public class pageclient {
 
 	private JFrame frame;
 	private JTextField Message;
-
-	private String TextMessage="";
 
 	/**
 	 * Launch the application.
@@ -37,8 +62,8 @@ public class pageclient {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					pageclient window = new pageclient();
-					window.frame.setVisible(true);
+					pageclient window2 = new pageclient();
+					window2.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,7 +85,7 @@ public class pageclient {
 		frame = new JFrame();
 		frame.setBounds(0, 0, 2000,1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[100][1200][][500][100]", "[100][50][50][750][100]"));
+		frame.getContentPane().setLayout(new MigLayout("", "[100][1200][][500][100]", "[100][50][50][800][100]"));
 		
 		JLabel lblNewLabel_1 = new JLabel("Votre nom");
 		frame.getContentPane().add(lblNewLabel_1, "cell 1 1,grow");
@@ -90,8 +115,9 @@ public class pageclient {
 		frame.getContentPane().add(Message, "flowx,cell 3 2,grow");
 		Message.setColumns(10);
 		
-		JLabel lblNewLabel_9 = new JLabel(new ImageIcon("./Terrain hockey.jpg"));
-		frame.getContentPane().add(lblNewLabel_9, "cell 1 3");
+		JPanel Terrain = new JPanel();
+		frame.getContentPane().add(Terrain, "cell 1 3,grow");
+	    Terrain.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 		
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -101,11 +127,9 @@ public class pageclient {
 		});
 		frame.getContentPane().add(btnNewButton, "cell 3 2");
 		
+		
 		JTextArea Messagerie = new JTextArea();
 		frame.getContentPane().add(Messagerie, "flowy,cell 3 3,grow");
-		
-		JScrollPane scrollPane = new JScrollPane();
-		frame.getContentPane().add(scrollPane, "cell 3 3");
 		
 		
 	}
