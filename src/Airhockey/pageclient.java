@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 public class pageclient {
 
@@ -57,9 +58,9 @@ public class pageclient {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(500, 500, 1500, 600);
+		frame.setBounds(0, 0, 2000,1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[100][500,grow][500,grow][100]", "[100,grow][50][50][300][100]"));
+		frame.getContentPane().setLayout(new MigLayout("", "[100][1200][][500][100]", "[100][50][50][750][100]"));
 		
 		JLabel lblNewLabel_1 = new JLabel("Votre nom");
 		frame.getContentPane().add(lblNewLabel_1, "cell 1 1,grow");
@@ -86,14 +87,11 @@ public class pageclient {
 		frame.getContentPane().add(lblNewLabel_8, "cell 1 1,grow");
 		
 		Message = new JTextField();
-		frame.getContentPane().add(Message, "flowx,cell 2 2,grow");
+		frame.getContentPane().add(Message, "flowx,cell 3 2,grow");
 		Message.setColumns(10);
 		
 		JLabel lblNewLabel_9 = new JLabel(new ImageIcon("./Terrain hockey.jpg"));
 		frame.getContentPane().add(lblNewLabel_9, "cell 1 3");
-		
-		JTextPane textPane = new JTextPane();
-		frame.getContentPane().add(textPane, "flowx,cell 2 3");
 		
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -101,10 +99,13 @@ public class pageclient {
 				
 			}
 		});
-		frame.getContentPane().add(btnNewButton, "cell 2 2");
+		frame.getContentPane().add(btnNewButton, "cell 3 2");
 		
 		JTextArea Messagerie = new JTextArea();
-		frame.getContentPane().add(Messagerie, "cell 2 3,grow");
+		frame.getContentPane().add(Messagerie, "flowy,cell 3 3,grow");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		frame.getContentPane().add(scrollPane, "cell 3 3");
 		
 		
 	}
