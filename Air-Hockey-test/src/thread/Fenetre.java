@@ -35,6 +35,7 @@ import java.io.IOException;
 	    		  private boolean animated2 = false;
 	    		  private boolean animated3 = false;
 	    		  private boolean backX, backY;
+	    		  private boolean but1, but2;
 	    		  private int x, y;
 
 	    		  private Thread t;
@@ -88,14 +89,18 @@ import java.io.IOException;
 	    	      if(x > pan.getWidth()-50)backX = true;          
 	    	      if(y < 1)backY = false;
 	    	      if(y > pan.getHeight()-50)backY = true;
-	    	      if(y == pan.getPosD()-25)
+	    	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x < 10))but1 = true;
+	    	      else but1 = false;
+	    	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
+	    	      else but2 = false;
+	    	      if((y == pan.getPosD()-25)&&(y < pan.getPosD()))
 	    	      {
 	    	    	  if((x >= pan.getPosC()-25)&&(x <= pan.getPosC()+50))
 		    	    	 {
 		    	    		 backY = true;
 		    	    	 }
 	    	      }
-	    	      if(y == pan.getPosD()+50)
+	    	      if((y == pan.getPosD()+50)&&(y > pan.getPosD()+25))
 	    	      {
 	    	    	  if((x >= pan.getPosC()-25)&&(x <= pan.getPosC()+50))
 		    	    	 {
@@ -120,7 +125,31 @@ import java.io.IOException;
 	    	      else pan.setPosX(--x);
 	    	      if(!backY) pan.setPosY(y++);
 	    	      else pan.setPosY(y--);
-	    	       
+	    	      if(but1)
+	    	    	  {
+	    	    	  	pan.setPosY(pan.getHeight()/2);
+	    	    	  	pan.setPosX(pan.getWidth()/2);
+		    		      animated = false;      
+		    		      animated2 = false; 
+		    		      animated3 = false; 
+		    		      bouton.setEnabled(true);
+		    		      bouton2.setEnabled(false);
+		    		      bouton3.setEnabled(true);
+		    		      bouton4.setEnabled(true);
+	    	    	  }
+	    	      if(but2)
+	    	    	  {
+	    	    	  	pan.setPosY(pan.getHeight()/2); 
+	    	    	  	pan.setPosX(pan.getWidth()/2);
+		    		      animated = false;      
+		    		      animated2 = false; 
+		    		      animated3 = false; 
+		    		      bouton.setEnabled(true);
+		    		      bouton2.setEnabled(false);
+		    		      bouton3.setEnabled(true);
+		    		      bouton4.setEnabled(true);
+	    	    	  }
+
 
 	    	      pan.repaint();
 
