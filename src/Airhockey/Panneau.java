@@ -27,14 +27,13 @@ public class Panneau extends JPanel {
     //On redéfinit une couleur pour le pallet
     g.setColor(Color.black);
     //On le dessine aux coordonnées souhaitées
-    g.fillOval(posX, posY, 25, 25);
+    g.fillOval(posX, posY,75, 75);
     //On redéfinit une couleur pour les pads
    // g.setColor(Color.blue);
     
     g.setColor(Color.red);
     Point point = MouseInfo.getPointerInfo().getLocation();
-
-    g.fillOval(posC=(int)point.getX()-25, posD=(int)point.getY()-75, 50, 50);
+    g.fillOval(posC=(int)point.getX()-140, posD=(int)point.getY()-225, 100, 100);
   }
 
   public int getPosX() {

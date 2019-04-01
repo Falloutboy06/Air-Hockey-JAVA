@@ -165,6 +165,7 @@ public class pageclient extends JFrame {
 	    this.setContentPane(container);
 	    this.setVisible(true);
 		frame.getContentPane().add(container, "cell 1 3,grow");
+		container.addMouseListener(null);
 	    //Terrain.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 	    go();
 	     
@@ -196,34 +197,34 @@ public class pageclient extends JFrame {
  	      if(x > pan.getWidth()-50)backX = true;          
  	      if(y < 1)backY = false;
  	      if(y > pan.getHeight()-50)backY = true;
- 	      if((y > (pan.getHeight()/2)-200)&&(y < (pan.getHeight()/2)+200)&&(x < 10))but1 = true;
+ 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x < 10))but1 = true;
  	      else but1 = false;
- 	      if((y > (pan.getHeight()/2)-200)&&(y < (pan.getHeight()/2)+200)&&(x>pan.getWidth()-70))but2 = true;
+ 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
  	      else but2 = false;
- 	      if((y == pan.getPosD()-25)&&(y < pan.getPosD()))
+ 	      if((y == pan.getPosD()-75)&&(y < pan.getPosD()))
  	      {
- 	    	  if((x >= pan.getPosC()-25)&&(x <= pan.getPosC()+50))
+ 	    	  if((x >= pan.getPosC()-75)&&(x <= pan.getPosC()+100))
 	    	    	 {
 	    	    		 backY = true;
 	    	    	 }
  	      }
- 	      if((y == pan.getPosD()+50)&&(y > pan.getPosD()+25))
+ 	      if((y == pan.getPosD()+100)&&(y > pan.getPosD()+75))
  	      {
- 	    	  if((x >= pan.getPosC()-25)&&(x <= pan.getPosC()+50))
+ 	    	  if((x >= pan.getPosC()-75)&&(x <= pan.getPosC()+100))
 	    	    	 {
 	    	    		 backY = false;
 	    	    	 }
  	      }
- 	      if(x == pan.getPosC()-25)
+ 	      if(x == pan.getPosC()-75)
  	      {
- 	    	  if((y >= pan.getPosD()-25)&&(y <= pan.getPosD()+50))
+ 	    	  if((y >= pan.getPosD()-75)&&(y <= pan.getPosD()+100))
 	    	    	 {
 	    	    		 backX = true;
 	    	    	 }
  	      }
- 	      if(x == pan.getPosC()+50)
+ 	      if(x == pan.getPosC()+100)
  	      {
- 	    	  if((y >= pan.getPosD()-25)&&(y <= pan.getPosD()+50))
+ 	    	  if((y >= pan.getPosD()-75)&&(y <= pan.getPosD()+100))
 	    	    	 {
 	    	    		 backX = false;
 	    	    	 }
