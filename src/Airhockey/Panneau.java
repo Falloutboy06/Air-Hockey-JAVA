@@ -16,8 +16,6 @@ public class Panneau extends JPanel {
   private int posC = 0;
   private int posD = 0;
  
-	
-
 
   public void paintComponent(Graphics g){
     //On choisit une couleur de fond pour le rectangle

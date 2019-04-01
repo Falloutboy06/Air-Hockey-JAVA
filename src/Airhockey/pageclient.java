@@ -188,13 +188,8 @@ public class pageclient extends JFrame {
 			}
 		});
 		frame.getContentPane().add(btnNewButton, "cell 3 2");
-		
-		
 		JTextArea Messagerie = new JTextArea();
-		frame.getContentPane().add(Messagerie, "flowy,cell 3 3,grow");
-		 
-		
-		
+		frame.getContentPane().add(Messagerie, "flowy,cell 3 3,grow");	
 	}
 	
 	 private void go(){
@@ -242,7 +237,7 @@ public class pageclient extends JFrame {
  	      else pan.setPosX(--x);
  	      if(!backY) pan.setPosY(y++);
  	      else pan.setPosY(y--);
- 	      if(but1)
+ 	      if(but1)//gauche
  	    	  {
  	    	  	pan.setPosY(pan.getHeight()/2);
  	    	  	pan.setPosX(pan.getWidth()/2);
@@ -252,7 +247,7 @@ public class pageclient extends JFrame {
 	    		      bouton2.setEnabled(false);
 
  	    	  }
- 	      if(but2)
+ 	      if(but2)//droite
  	    	  {
  	    	  	pan.setPosY(pan.getHeight()/2); 
  	    	  	pan.setPosX(pan.getWidth()/2);
