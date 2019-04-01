@@ -33,7 +33,7 @@ public class Panneau extends JPanel {
     
     g.setColor(Color.red);
     Point point = MouseInfo.getPointerInfo().getLocation();
-    g.fillOval(posC=(int)point.getX()-140, posD=(int)point.getY()-225, 100, 100);
+    g.fillOval(posC=(int)point.getX()-150, posD=(int)point.getY()-250, 100, 100);
   }
 
   public int getPosX() {
