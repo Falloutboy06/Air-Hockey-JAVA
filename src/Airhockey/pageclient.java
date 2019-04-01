@@ -197,9 +197,6 @@ public class pageclient extends JFrame {
 		
 	}
 	
-	
-	
-	
 	 private void go(){
  	    x = pan.getPosX();
  	    y = pan.getPosY();
