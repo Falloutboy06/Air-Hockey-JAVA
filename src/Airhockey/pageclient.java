@@ -1,7 +1,10 @@
 package Airhockey;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.imageio.ImageIO;
@@ -10,23 +13,32 @@ import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 
 import net.miginfocom.swing.MigLayout;
+import Airhockey.pageclient.Bouton2Listener;
+import Airhockey.pageclient.BoutonListener;
+import Airhockey.pageclient.PlayAnimation;
+import Airhockey.Panneau;
+
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageProducer;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 
 class TestImagePanel extends JPanel {
+
 	 
 	private static final long serialVersionUID = 1L;
 	private Image img;
@@ -43,6 +55,7 @@ class TestImagePanel extends JPanel {
 		setMaximumSize(size);
 		setSize(size);
 		setLayout(null);
+		
 	}
  
 	public void paintComponent(Graphics g) {
@@ -50,13 +63,26 @@ class TestImagePanel extends JPanel {
 	}
 }
 
-public class pageclient {
+public class pageclient extends JFrame {
 
 	private JFrame frame;
 	private JTextField Message;
 	private static String J1;
 	private static String IP;
 	private static int ID;
+
+	  private Panneau pan = new Panneau();
+	  private JPanel container = new JPanel();
+	  private JLabel label = new JLabel("Le JLabel");
+	  private JButton bouton = new JButton("Go");
+	  private JButton bouton2 = new JButton("Pause");
+	  private int compteur = 0;
+	  private boolean animated = true;
+	  private boolean animated2 = false;
+	  private boolean backX, backY;
+	  private boolean but1, but2;
+	  private int x, y;
+	  private Thread t;
 
 	/**
 	 * Launch the application.
@@ -77,8 +103,10 @@ public class pageclient {
 	/**
 	 * Create the application.
 	 */
-	public pageclient() {
+		  public pageclient() {
+
 		initialize();
+		
 	}
 	//contructeur de la page Client 
 	public pageclient(String S1,String S2,int I1) {
@@ -93,7 +121,11 @@ public class pageclient {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+
+		  
+		  
 	private void initialize() {
+
 		frame = new JFrame();
 		frame.setBounds(0, 0, 2000,1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,11 +158,29 @@ public class pageclient {
 		Message = new JTextField();
 		frame.getContentPane().add(Message, "flowx,cell 3 2,grow");
 		Message.setColumns(10);
+
+		bouton.addActionListener(new BoutonListener()); 
+		bouton.setEnabled(false);
+		bouton2.addActionListener(new Bouton2Listener());
 		
-		JPanel Terrain = new JPanel();
-		frame.getContentPane().add(Terrain, "cell 1 3,grow");
-	    Terrain.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
-		
+		//container.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
+	    container.setLayout(new BorderLayout());
+	    container.add(pan, BorderLayout.CENTER);
+	    bouton.addActionListener(new BoutonListener()); 
+	    bouton.setEnabled(false);
+	    bouton2.addActionListener(new Bouton2Listener());
+
+	    JPanel Terrain = new JPanel();
+	    Terrain.add(bouton);
+	    Terrain.add(bouton2);
+		container.add(Terrain, BorderLayout.SOUTH);
+	    this.setContentPane(container);
+	    this.setVisible(true);
+		frame.getContentPane().add(container, "cell 1 3,grow");
+		container.addMouseListener(null);
+	    //Terrain.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
+	    go();
+	     
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -142,8 +192,121 @@ public class pageclient {
 		
 		JTextArea Messagerie = new JTextArea();
 		frame.getContentPane().add(Messagerie, "flowy,cell 3 3,grow");
+		 
 		
 		
 	}
+	
+	
+	
+	
+	 private void go(){
+ 	    x = pan.getPosX();
+ 	    y = pan.getPosY();
+
+ 	    while(this.animated){
+ 	      if(x < 1)backX = false;
+ 	      if(x > pan.getWidth()-50)backX = true;          
+ 	      if(y < 1)backY = false;
+ 	      if(y > pan.getHeight()-50)backY = true;
+ 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x < 10))but1 = true;
+ 	      else but1 = false;
+ 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
+ 	      else but2 = false;
+ 	      if((y == pan.getPosD()-75)&&(y < pan.getPosD()))
+ 	      {
+ 	    	  if((x >= pan.getPosC()-75)&&(x <= pan.getPosC()+100))
+	    	    	 {
+	    	    		 backY = true;
+	    	    	 }
+ 	      }
+ 	      if((y == pan.getPosD()+100)&&(y > pan.getPosD()+75))
+ 	      {
+ 	    	  if((x >= pan.getPosC()-75)&&(x <= pan.getPosC()+100))
+	    	    	 {
+	    	    		 backY = false;
+	    	    	 }
+ 	      }
+ 	      if(x == pan.getPosC()-75)
+ 	      {
+ 	    	  if((y >= pan.getPosD()-75)&&(y <= pan.getPosD()+100))
+	    	    	 {
+	    	    		 backX = true;
+	    	    	 }
+ 	      }
+ 	      if(x == pan.getPosC()+100)
+ 	      {
+ 	    	  if((y >= pan.getPosD()-75)&&(y <= pan.getPosD()+100))
+	    	    	 {
+	    	    		 backX = false;
+	    	    	 }
+ 	      }
+ 	      if(!backX)pan.setPosX(++x);
+ 	      else pan.setPosX(--x);
+ 	      if(!backY) pan.setPosY(y++);
+ 	      else pan.setPosY(y--);
+ 	      if(but1)
+ 	    	  {
+ 	    	  	pan.setPosY(pan.getHeight()/2);
+ 	    	  	pan.setPosX(pan.getWidth()/2);
+	    		      animated = false;      
+	    		      animated2 = false; 
+	    		      bouton.setEnabled(true);
+	    		      bouton2.setEnabled(false);
+
+ 	    	  }
+ 	      if(but2)
+ 	    	  {
+ 	    	  	pan.setPosY(pan.getHeight()/2); 
+ 	    	  	pan.setPosX(pan.getWidth()/2);
+	    		      animated = false;      
+	    		      animated2 = false; 
+	    		      bouton.setEnabled(true);
+	    		      bouton2.setEnabled(false);
+ 	    	  }
+
+
+ 	      pan.repaint();
+
+
+ 	      try {
+ 	        Thread.sleep(3);
+ 	      } catch (InterruptedException e) {
+ 	        e.printStackTrace();
+ 	      }
+ 	    }     
+ 	  }
+
+
+
+ 	  public class BoutonListener implements ActionListener{
+ 		    public void actionPerformed(ActionEvent arg0) {
+ 		    	if(t != null)
+ 		    	{
+ 		    		t.interrupt();
+ 		    	}
+ 		      animated = true;
+ 		      t = new Thread(new PlayAnimation());
+ 		      t.start();
+ 		      bouton.setEnabled(false);
+ 		      bouton2.setEnabled(true);
+ 		    }
+ 		  }
+
+
+ 		  class Bouton2Listener  implements ActionListener{
+ 		    public void actionPerformed(ActionEvent e) {
+ 		      animated = false;      
+ 		      animated2 = false; 
+ 		      bouton.setEnabled(true);
+ 		      bouton2.setEnabled(false);
+ 		    }
+ 		  }    
+ class PlayAnimation implements Runnable{
+     public void run() {
+       go();                   
+     }               
+   }
+ 
 
 }
