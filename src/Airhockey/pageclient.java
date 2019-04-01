@@ -54,6 +54,9 @@ public class pageclient {
 
 	private JFrame frame;
 	private JTextField Message;
+	private static String J1;
+	private static String IP;
+	private static int ID;
 
 	/**
 	 * Launch the application.
@@ -77,7 +80,16 @@ public class pageclient {
 	public pageclient() {
 		initialize();
 	}
-
+	//contructeur de la page Client 
+	public pageclient(String S1,String S2,int I1) {
+		J1=S1;
+		IP=S2;
+		ID=I1;
+		if(ID==1) {/*Création serveur*/}
+		if(ID==2) {/*Connexion au serveur*/}
+		initialize();
+		pageclient.this.frame.setVisible(true);
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
