@@ -212,8 +212,7 @@ public class pageclient extends JFrame {
 	 	    y = pan.getPosY();
 	 	    float deltax=(0);
 	 	    float deltay=(0);
-	 	  ;
-		  	;
+
 	 	    while(this.animated){
 	 	      if(x < 1)backX = false;
 	 	      if(x > pan.getWidth()-50)backX = true;          
@@ -224,7 +223,7 @@ public class pageclient extends JFrame {
 	 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
 	 	      else but2 = false;
 	/*******************Face du haut*********************/ 	     
-	 	      if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+	 	      if((y >= pan.getPosD()-50)&&(y < pan.getPosD()+25))
 	 	      {
 	 	    	  if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-40))
 		    	    	 {
@@ -233,7 +232,7 @@ public class pageclient extends JFrame {
 		    	    		 backY = true;
 		    	    	 }
 	 	      }
-	 	     if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+	 	     if((y >= pan.getPosD()-50)&&(y < pan.getPosD()+25))
 		      {
 		    	  if((x >= pan.getPosC()-40)&&(x < pan.getPosC()-5))
 		    	    	 {
@@ -242,7 +241,7 @@ public class pageclient extends JFrame {
 		    	    		 backY = true;
 		    	    	 }
 		      }
-	 	    if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+	 	    if((y >= pan.getPosD()-50)&&(y < pan.getPosD()+25))
 		      {
 		    	  if((x >= pan.getPosC()-5)&&(x < pan.getPosC()+30))
 		    	    	 {
@@ -251,7 +250,7 @@ public class pageclient extends JFrame {
 		    	    		 backY = true;
 		    	    	 }
 		      }
-	 	   if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+	 	   if((y >= pan.getPosD()-50)&&(y < pan.getPosD()+25))
 		      {
 		    	  if((x >= pan.getPosC()+30)&&(x <= pan.getPosC()+65))
 		    	    	 {
@@ -260,7 +259,7 @@ public class pageclient extends JFrame {
 		    	    		 backY = true;
 		    	    	 }
 		      }
-	 	   if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+	 	   if((y >= pan.getPosD()-50)&&(y < pan.getPosD()+25))
 		      {
 		    	  if((x >= pan.getPosC()+65)&&(x <= pan.getPosC()+100))
 		    	    	 {
@@ -319,7 +318,7 @@ public class pageclient extends JFrame {
 		      }
 	 	  /*******************Face de gauche*********************/
 	 	      
-	 	     if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+	 	     if((x >= pan.getPosC()-50)&&(x < pan.getPosC()))
 		      {
 		    	  if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-40))
 		    	    	 {
@@ -328,7 +327,7 @@ public class pageclient extends JFrame {
 		    	    		 backX = true;
 		    	    	 }
 		      }
-	 	    if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+	 	    if((x >= pan.getPosC()-50)&&(x < pan.getPosC()))
 		      {
 		    	  if((y >= pan.getPosD()-40)&&(y < pan.getPosD()-5))
 		    	    	 {
@@ -337,7 +336,7 @@ public class pageclient extends JFrame {
 			  		  		backX = true;
 		    	    	 }
 		      }
-	 	   if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+	 	   if((x >= pan.getPosC()-50)&&(x < pan.getPosC()))
 		      {
 		    	  if((y >= pan.getPosD()-5)&&(y < pan.getPosD()+30))
 		    	    	 {
@@ -346,7 +345,7 @@ public class pageclient extends JFrame {
 		  		  		 backX = true;
 		    	    	 }
 		      }
-	 	  if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+	 	  if((x >= pan.getPosC()-50)&&(x < pan.getPosC()))
 		      {
 		    	  if((y >= pan.getPosD()+30)&&(y <= pan.getPosD()+65))
 		    	    	 {
@@ -355,7 +354,7 @@ public class pageclient extends JFrame {
 			  		       backX = true;
 		    	    	 }
 		      }
-	 	 if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+	 	 if((x >= pan.getPosC()-50)&&(x < pan.getPosC()))
 		      {
 		    	  if((y >= pan.getPosD()+65)&&(y <= pan.getPosD()+100))
 		    	    	 {

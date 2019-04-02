@@ -25,7 +25,7 @@ public class Panneau extends JPanel {
     //On redéfinit une couleur pour le pallet
     g.setColor(Color.black);
     //On le dessine aux coordonnées souhaitées
-    g.fillOval((int)posX, (int)posY,75, 75);
+    g.fillOval((int)posX, (int)posY,50, 50);
     //On redéfinit une couleur pour les pads
    // g.setColor(Color.blue);
     
