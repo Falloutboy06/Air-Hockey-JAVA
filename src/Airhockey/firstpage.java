@@ -54,14 +54,14 @@ public class firstpage {
 		frame.getContentPane().setLayout(new MigLayout("", "[100][200][200,grow][200][100]", "[100][100][100][100][100][100][100][100]"));
 		
 		JLabel lblNewLabel = new JLabel("Pseudo Joueur");
-		frame.getContentPane().add(lblNewLabel, "cell 2 2,alignx center,aligny bottom");
-		
-		TextPseudo = new JTextField();
-		frame.getContentPane().add(TextPseudo, "cell 2 3,growx,aligny top");
-		TextPseudo.setColumns(10);
+		frame.getContentPane().add(lblNewLabel, "cell 1 2,alignx center,aligny bottom");
 		
 		JLabel lblNewLabel_1 = new JLabel("IP Serveur");
-		frame.getContentPane().add(lblNewLabel_1, "cell 2 4,alignx center,aligny bottom");
+		frame.getContentPane().add(lblNewLabel_1, "cell 3 2,alignx center,aligny bottom");
+		
+		TextPseudo = new JTextField();
+		frame.getContentPane().add(TextPseudo, "cell 1 3,growx,aligny top");
+		TextPseudo.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Cr\u00E9er Partie");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -73,11 +73,11 @@ public class firstpage {
 				Windowjeu=new pageclient(Pseudo,IP,ID);
 			}
 		});
-		frame.getContentPane().add(btnNewButton, "cell 1 5,alignx center,aligny center");
 		
 		TextIP = new JTextField();
-		frame.getContentPane().add(TextIP, "cell 2 5,growx,aligny top");
+		frame.getContentPane().add(TextIP, "cell 3 3,growx,aligny top");
 		TextIP.setColumns(10);
+		frame.getContentPane().add(btnNewButton, "cell 1 5,alignx center,aligny center");
 		
 		JButton btnNewButton_1 = new JButton("Rejoindre Partie");
 		btnNewButton_1.addActionListener(new ActionListener() {

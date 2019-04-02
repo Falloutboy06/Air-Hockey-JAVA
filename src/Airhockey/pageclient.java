@@ -16,8 +16,12 @@ import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 import net.miginfocom.swing.MigLayout;
 import Airhockey.pageclient.Bouton2Listener;
@@ -27,6 +31,7 @@ import Airhockey.Panneau;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -70,23 +75,24 @@ public class pageclient extends JFrame {
 	private static String J1;
 	private static String IP;
 	private static int ID;
+	final static int port = 2009;
+	private Panneau pan = new Panneau();
+	private JPanel container = new JPanel();
+	private JLabel label = new JLabel("Le JLabel");
+	private JButton bouton = new JButton("Go");
+	private JButton bouton2 = new JButton("Pause");
+	private int compteur = 0;
+	private boolean animated = true;
+	private boolean animated2 = false;
+	private boolean backX, backY;
+	private boolean but1, but2;
+	private int x, y;
+	private Thread t;
+	private Serveur serveur;
+	private Socket socket;
+	private BufferedReader in;
+	private PrintWriter out;
 
-	  private Panneau pan = new Panneau();
-	  private JPanel container = new JPanel();
-	  private JLabel label = new JLabel("Le JLabel");
-	  private JButton bouton = new JButton("Go");
-	  private JButton bouton2 = new JButton("Pause");
-	  private int compteur = 0;
-	  private boolean animated = true;
-	  private boolean animated2 = false;
-	  private boolean backX, backY;
-	  private boolean but1, but2;
-	  private int x, y;
-	  private Thread t;
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -99,37 +105,43 @@ public class pageclient extends JFrame {
 			}
 		});
 	}
-	
-	/**
-	 * Create the application.
-	 */
-		  public pageclient() {
-
+	  public pageclient() {
 		initialize();
-		
 	}
 	//contructeur de la page Client 
 	public pageclient(String S1,String S2,int I1) {
 		J1=S1;
 		IP=S2;
 		ID=I1;
-		if(ID==1) {/*Création serveur*/}
-		if(ID==2) {/*Connexion au serveur*/}
+		if(ID==1) {
+			CreationServeur();
+		}
+		else if(ID==2) {
+			/*Connexion au serveur*/
+			//Socket socket = new Socket(IP,port);
+		}
 		initialize();
 		pageclient.this.frame.setVisible(true);
+		
+	}	
+	public void CreationServeur()
+	{
+		//serveur=new Serveur(); appel ouverture serveur//
+		System.out.println("Lancement du serveur");
+	}  
+	public void ConnexionServeur()
+	{
+		/*Connexion au serveur*/
+		//Socket socket = new Socket(IP,port);
 	}
-	/**
-	 * Initialize the contents of the frame.
-	 */
-
-		  
+	
 		  
 	private void initialize() {
 
 		frame = new JFrame();
 		frame.setBounds(0, 0, 2000,1100);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new MigLayout("", "[100][1200][][500][100]", "[100][50][50][800][100]"));
+		frame.getContentPane().setLayout(new MigLayout("", "[100][1200][][500,grow][100]", "[100][50][50][800,grow][100]"));
 		
 		JLabel lblNewLabel_1 = new JLabel("Votre nom");
 		frame.getContentPane().add(lblNewLabel_1, "cell 1 1,grow");
@@ -173,8 +185,8 @@ public class pageclient extends JFrame {
 	    JPanel Terrain = new JPanel();
 	    Terrain.add(bouton);
 	    Terrain.add(bouton2);
-		container.add(Terrain, BorderLayout.SOUTH);
-	    this.setContentPane(container);
+		//container.add(Terrain, BorderLayout.SOUTH);
+	    //this.setContentPane(container);
 	    this.setVisible(true);
 		frame.getContentPane().add(container, "cell 1 3,grow");
 		container.addMouseListener(null);
@@ -188,8 +200,10 @@ public class pageclient extends JFrame {
 			}
 		});
 		frame.getContentPane().add(btnNewButton, "cell 3 2");
+		
 		JTextArea Messagerie = new JTextArea();
-		frame.getContentPane().add(Messagerie, "flowy,cell 3 3,grow");	
+		Messagerie.setEditable(false);
+		frame.getContentPane().add(Messagerie, "cell 3 3,grow");
 	}
 	
 	 private void go(){
@@ -256,11 +270,7 @@ public class pageclient extends JFrame {
 	    		      bouton.setEnabled(true);
 	    		      bouton2.setEnabled(false);
  	    	  }
-
-
  	      pan.repaint();
-
-
  	      try {
  	        Thread.sleep(3);
  	      } catch (InterruptedException e) {
