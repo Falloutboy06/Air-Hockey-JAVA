@@ -86,7 +86,8 @@ public class pageclient extends JFrame {
 	private boolean animated2 = false;
 	private boolean backX, backY;
 	private boolean but1, but2;
-	private int x, y;
+	float x;
+	private float y;
 	private Thread t;
 	private Serveur serveur;
 	private Socket socket;
@@ -185,8 +186,8 @@ public class pageclient extends JFrame {
 	    JPanel Terrain = new JPanel();
 	    Terrain.add(bouton);
 	    Terrain.add(bouton2);
-		//container.add(Terrain, BorderLayout.SOUTH);
-	    //this.setContentPane(container);
+		container.add(Terrain, BorderLayout.SOUTH);
+	    this.setContentPane(container);
 	    this.setVisible(true);
 		frame.getContentPane().add(container, "cell 1 3,grow");
 		container.addMouseListener(null);
@@ -207,50 +208,214 @@ public class pageclient extends JFrame {
 	}
 	
 	 private void go(){
- 	    x = pan.getPosX();
- 	    y = pan.getPosY();
-
- 	    while(this.animated){
- 	      if(x < 1)backX = false;
- 	      if(x > pan.getWidth()-50)backX = true;          
- 	      if(y < 1)backY = false;
- 	      if(y > pan.getHeight()-50)backY = true;
- 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x < 10))but1 = true;
- 	      else but1 = false;
- 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
- 	      else but2 = false;
- 	      if((y == pan.getPosD()-75)&&(y < pan.getPosD()))
- 	      {
- 	    	  if((x >= pan.getPosC()-75)&&(x <= pan.getPosC()+100))
-	    	    	 {
-	    	    		 backY = true;
-	    	    	 }
- 	      }
- 	      if((y == pan.getPosD()+100)&&(y > pan.getPosD()+75))
- 	      {
- 	    	  if((x >= pan.getPosC()-75)&&(x <= pan.getPosC()+100))
-	    	    	 {
-	    	    		 backY = false;
-	    	    	 }
- 	      }
- 	      if(x == pan.getPosC()-75)
- 	      {
- 	    	  if((y >= pan.getPosD()-75)&&(y <= pan.getPosD()+100))
-	    	    	 {
-	    	    		 backX = true;
-	    	    	 }
- 	      }
- 	      if(x == pan.getPosC()+100)
- 	      {
- 	    	  if((y >= pan.getPosD()-75)&&(y <= pan.getPosD()+100))
-	    	    	 {
-	    	    		 backX = false;
-	    	    	 }
- 	      }
- 	      if(!backX)pan.setPosX(++x);
- 	      else pan.setPosX(--x);
- 	      if(!backY) pan.setPosY(y++);
- 	      else pan.setPosY(y--);
+	 	    x = pan.getPosX();
+	 	    y = pan.getPosY();
+	 	    float deltax=(0);
+	 	    float deltay=(0);
+	 	  ;
+		  	;
+	 	    while(this.animated){
+	 	      if(x < 1)backX = false;
+	 	      if(x > pan.getWidth()-50)backX = true;          
+	 	      if(y < 1)backY = false;
+	 	      if(y > pan.getHeight()-50)backY = true;
+	 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x < 10))but1 = true;
+	 	      else but1 = false;
+	 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
+	 	      else but2 = false;
+	/*******************Face du haut*********************/ 	     
+	 	      if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+	 	      {
+	 	    	  if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-40))
+		    	    	 {
+	 	    		  		 deltax=1;
+	 	    		  		 deltay=1;
+		    	    		 backY = true;
+		    	    	 }
+	 	      }
+	 	     if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+		      {
+		    	  if((x >= pan.getPosC()-40)&&(x < pan.getPosC()-5))
+		    	    	 {
+				    		 deltax=(float) 0.75;
+			  		  		 deltay=(float) 1.25;
+		    	    		 backY = true;
+		    	    	 }
+		      }
+	 	    if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+		      {
+		    	  if((x >= pan.getPosC()-5)&&(x < pan.getPosC()+30))
+		    	    	 {
+		    		   		 deltax=(float) 0;
+		  		  		     deltay=(float) 1.5;
+		    	    		 backY = true;
+		    	    	 }
+		      }
+	 	   if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+		      {
+		    	  if((x >= pan.getPosC()+30)&&(x <= pan.getPosC()+65))
+		    	    	 {
+		    		         deltax=(float) 0.75;
+			  		         deltay=(float) 1.25;
+		    	    		 backY = true;
+		    	    	 }
+		      }
+	 	   if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-25))
+		      {
+		    	  if((x >= pan.getPosC()+65)&&(x <= pan.getPosC()+100))
+		    	    	 {
+		    		         deltax=(float) 1.0;
+			  		         deltay=(float) 1.0;
+		    	    		 backY = true;
+		    	    	 }
+		      }
+	 	      
+	 	  /*******************Face du bas*********************/	   
+	 	   
+	 	  if((y <= pan.getPosD()+100)&&(y > pan.getPosD()+50))
+		      {
+		    	  if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-40))
+		    	    	 {
+		    		  		 deltax=1;
+		    		  		 deltay=1;
+		    	    		 backY = false;
+		    	    	 }
+		      }
+	 	 if((y <= pan.getPosD()+100)&&(y > pan.getPosD()+50))
+		      {
+		    	  if((x >= pan.getPosC()-40)&&(x < pan.getPosC()-5))
+		    	    	 {
+				    		 deltax=(float) 0.75;
+			  		  		 deltay=(float) 1.25;
+		    	    		 backY = false;
+		    	    	 }
+		      }
+	 	if((y <= pan.getPosD()+100)&&(y > pan.getPosD()+50))
+		      {
+		    	  if((x >= pan.getPosC()-5)&&(x < pan.getPosC()+30))
+		    	    	 {
+		    		   		 deltax=(float) 0;
+		  		  		     deltay=(float) 1.5;
+		    	    		 backY = false;
+		    	    	 }
+		      }
+	 	if((y <= pan.getPosD()+100)&&(y > pan.getPosD()+50))
+		      {
+		    	  if((x >= pan.getPosC()+30)&&(x <= pan.getPosC()+65))
+		    	    	 {
+		    		         deltax=(float) 0.75;
+			  		         deltay=(float) 1.25;
+		    	    		 backY = false;
+		    	    	 }
+		      }
+	 	if((y <= pan.getPosD()+100)&&(y > pan.getPosD()+50))
+		      {
+		    	  if((x >= pan.getPosC()+65)&&(x <= pan.getPosC()+100))
+		    	    	 {
+		    		         deltax=(float) 1.0;
+			  		         deltay=(float) 1.0;
+		    	    		 backY = false;
+		    	    	 }
+		      }
+	 	  /*******************Face de gauche*********************/
+	 	      
+	 	     if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+		      {
+		    	  if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-40))
+		    	    	 {
+		    		  		 deltax=1;
+		    		  		 deltay=1;
+		    	    		 backX = true;
+		    	    	 }
+		      }
+	 	    if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+		      {
+		    	  if((y >= pan.getPosD()-40)&&(y < pan.getPosD()-5))
+		    	    	 {
+				    		 deltay=(float) 0.75;
+			  		  		 deltax=(float) 1.25;
+			  		  		backX = true;
+		    	    	 }
+		      }
+	 	   if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+		      {
+		    	  if((y >= pan.getPosD()-5)&&(y < pan.getPosD()+30))
+		    	    	 {
+		    		   		 deltay=(float) 0;
+		  		  		     deltax=(float) 1.5;
+		  		  		 backX = true;
+		    	    	 }
+		      }
+	 	  if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+		      {
+		    	  if((y >= pan.getPosD()+30)&&(y <= pan.getPosD()+65))
+		    	    	 {
+		    		         deltay=(float) 0.75;
+			  		         deltax=(float) 1.25;
+			  		       backX = true;
+		    	    	 }
+		      }
+	 	 if((x >= pan.getPosC()-75)&&(x < pan.getPosC()-25))
+		      {
+		    	  if((y >= pan.getPosD()+65)&&(y <= pan.getPosD()+100))
+		    	    	 {
+		    		         deltay=(float) 1.0;
+			  		         deltax=(float) 1.0;
+			  		       backX = true;
+		    	    	 }
+		      }
+	 	     /*******************Face de droite*********************/     
+	 	
+	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
+	 	      {
+	 	    	  if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-40))
+	 	    	    	 {
+	 	    		  		 deltax=1;
+	 	    		  		 deltay=1;
+	 	    		  		backX = false;
+	 	    	    	 }
+	 	      }
+	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
+	 	      {
+	 	    	  if((y >= pan.getPosD()-40)&&(y < pan.getPosD()-5))
+	 	    	    	 {
+	 			    		 deltay=(float) 0.75;
+	 		  		  		 deltax=(float) 1.25;
+	 		  		  	backX = false;
+	 	    	    	 }
+	 	      }
+	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
+	 	      {
+	 	    	  if((y >= pan.getPosD()-5)&&(y < pan.getPosD()+30))
+	 	    	    	 {
+	 	    		   		 deltay=(float) 0;
+	 	  		  		     deltax=(float) 1.5;
+	 	  		  		backX = false;
+	 	    	    	 }
+	 	      }
+	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
+	 	      {
+	 	    	  if((y >= pan.getPosD()+30)&&(y <= pan.getPosD()+65))
+	 	    	    	 {
+	 	    		         deltay=(float) 0.75;
+	 		  		         deltax=(float) 1.25;
+	 		  		      backX = false;
+	 	    	    	 }
+	 	      }
+	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
+	 	      {
+	 	    	  if((y >= pan.getPosD()+65)&&(y <= pan.getPosD()+100))
+	 	    	    	 {
+	 	    		         deltay=(float) 1.0;
+	 		  		         deltax=(float) 1.0;
+	 		  		      backX = false;
+	 	    	    	 }
+	 	      }
+	 	     /****************************************************/
+	 	      if(!backX)pan.setPosX(x=x+deltax);
+	 	      else pan.setPosX(x=x-deltax);
+	 	      if(!backY) pan.setPosY(y=y+deltay);
+	 	      else pan.setPosY(y=y-deltay);
  	      if(but1)//gauche
  	    	  {
  	    	  	pan.setPosY(pan.getHeight()/2);

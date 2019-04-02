@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
  
 public class Panneau extends JPanel {
-  private int posX = -50;
-  private int posY = -50;
+  private float posX = -50;
+  private float posY = -50;
   private double posA = 50;
   private double posB = 50;
   private int posC = 0;
@@ -25,7 +25,7 @@ public class Panneau extends JPanel {
     //On redéfinit une couleur pour le pallet
     g.setColor(Color.black);
     //On le dessine aux coordonnées souhaitées
-    g.fillOval(posX, posY,75, 75);
+    g.fillOval((int)posX, (int)posY,75, 75);
     //On redéfinit une couleur pour les pads
    // g.setColor(Color.blue);
     
@@ -34,20 +34,20 @@ public class Panneau extends JPanel {
     g.fillOval(posC=(int)point.getX()-150, posD=(int)point.getY()-250, 100, 100);
   }
 
-  public int getPosX() {
+  public float getPosX() {
     return posX;
   }
 
-  public void setPosX(int posX) {
-    this.posX = posX;
+  public void setPosX(float f) {
+    this.posX = f;
   }
 
-  public int getPosY() {
+  public float getPosY() {
     return posY;
   }
 
-  public void setPosY(int posY) {
-    this.posY = posY;
+  public void setPosY(float f) {
+    this.posY = f;
   }
   
   public double getPosA() {
