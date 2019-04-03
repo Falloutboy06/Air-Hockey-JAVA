@@ -2,6 +2,10 @@ package Airhockey;
 
 import java.net.*;
 import java.util.LinkedList;
+
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import java.io.*;
 
 public class Serveur extends Thread {
@@ -25,7 +29,6 @@ public class Serveur extends Thread {
 		}
 	}*/
 	public Serveur(int port) {
-		
 		this.port = port;
 		creationServeur();
 	}	
@@ -48,7 +51,7 @@ public class Serveur extends Thread {
 	}
 	public void traitements() {
 
-		/*try {
+		try {
 
 			String message = "";
 
@@ -66,7 +69,12 @@ public class Serveur extends Thread {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+<<<<<<< HEAD
 		}*/
+=======
+
+		}
+>>>>>>> branch 'master' of https://github.com/Falloutboy06/Air-Hockey-JAVA
 
 	}
 
