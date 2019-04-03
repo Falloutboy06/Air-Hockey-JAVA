@@ -1,16 +1,17 @@
 package Airhockey;
 
 import java.net.*;
-
+import java.util.LinkedList;
 import java.io.*;
 
 public class Serveur extends Thread {
 
-	final static int port = 2009;
 	private Socket socket;
 	private String IP;
+	private ServerSocket serv;
+	private int port;
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 				ServerSocket socketServeur = new ServerSocket(port);
 				System.out.println("Lancement du serveur");
@@ -22,16 +23,27 @@ public class Serveur extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}*/
+	public Serveur(int port) {
+		
+		this.port = port;
+		creationServeur();
+	}	
+	
+	public void creationServeur() {
+		
+		try {
+			serv = new ServerSocket(port);
+		} catch (Exception e) {
+			System.out.println("Erreur dans la creation du serveur : " + e);	
+		}
+		Thread t = new Thread(this);
+		t.start();				
 	}
-	public Serveur(Socket socket) {
-		this.socket=socket;
-		this.IP=IP;
-		//constructeur a faire
-	}
+	
 	public void run() {
 		traitements();
 	}
-
 	public void traitements() {
 
 		try {

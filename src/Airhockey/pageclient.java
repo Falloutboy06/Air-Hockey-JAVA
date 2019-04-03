@@ -85,7 +85,7 @@ public class pageclient extends JFrame {
 	float x;
 	private float y;
 	private Thread t;
-	private Serveur serveur;
+	private ServerSocket serv;
 	private Socket socket;
 	private BufferedReader in;
 	private PrintWriter out;
@@ -95,6 +95,9 @@ public class pageclient extends JFrame {
 	private JLabel lblPointJ2;
 	private JLabel TextNom1;
 	private JLabel TextNom2;
+	private Serveur Serv;
+	
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -112,27 +115,12 @@ public class pageclient extends JFrame {
 		initialize();
 	}
 	//contructeur de la page Client 
-	public pageclient(String S1,String S2,int I1) {
-		J1=S1;
-		IP=S2;
-		ID=I1;
-		if(ID==1) {
-			TextNom1.setText(S1);
-			CreationServeur();
-			ConnexionServeur();
-		}
-		else if(ID==2) {
-			TextNom1.setText(S1);
-			ConnexionServeur();
-		}
-		initialize();
-		pageclient.this.frame.setVisible(true);
 		
-	}	
 	public void CreationServeur()
 	{
 		//serveur=new Serveur(); appel ouverture serveur//
 		System.out.println("Lancement du serveur");
+		Serv = new Serveur(port);
 	}  
 	public void ConnexionServeur()
 	{
@@ -140,8 +128,6 @@ public class pageclient extends JFrame {
 		//Socket socket = new Socket(IP,port);
 		System.out.println("Connexion au serveur");
 	}
-	
-		  
 	private void initialize() {
 
 		frame = new JFrame();
@@ -215,6 +201,23 @@ public class pageclient extends JFrame {
 		});
 		frame.getContentPane().add(btnNewButton, "cell 3 2");		
 	}
+	public pageclient(String S1,String S2,int I1) {
+		J1=S1;
+		IP=S2;
+		ID=I1;
+		if(ID==1) {
+			System.out.println(J1);
+			CreationServeur();
+			TextNom1.setText(""+J1+"");
+		}
+		else if(ID==2) {
+			TextNom2.setText(""+J1+"");
+			ConnexionServeur();
+		}
+		initialize();
+		pageclient.this.frame.setVisible(true);
+		
+	}
 	private void ButGauche()//le Joueur 2 marque dans le but Gauche
 	{
 		pan.setPosY(pan.getHeight()/2);
@@ -254,6 +257,7 @@ public class pageclient extends JFrame {
 			animated2 = false; 
 			bouton.setEnabled(true);
 			bouton2.setEnabled(false);
+			
 		}else if(PointJ2==10){
 			String st2 = "Victoire Joueur 2 !!!";
 			JOptionPane.showMessageDialog(null, st2);
@@ -274,7 +278,6 @@ public class pageclient extends JFrame {
 	 	    y = pan.getPosY();
 	 	    float deltax=(0);
 	 	    float deltay=(0);
-
 	 	    while(this.animated){
 	 	    	/********Verification collision murs*********/
 	 	      if(x < 1)backX = false;
@@ -428,13 +431,12 @@ public class pageclient extends JFrame {
 		    	    	 }
 		      }
 	 	     /*******************Face de droite*********************/     
-	 	
 	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
 	 	      {
 	 	    	  if((y >= pan.getPosD()-75)&&(y < pan.getPosD()-40))
 	 	    	    	 {
-	 	    		  		 deltax=1;
-	 	    		  		 deltay=1;
+	 	    		  		deltax=1;
+	 	    		  		deltay=1;
 	 	    		  		backX = false;
 	 	    	    	 }
 	 	      }
@@ -453,7 +455,7 @@ public class pageclient extends JFrame {
 	 	    	    	 {
 	 	    		   		 deltay=(float) 0;
 	 	  		  		     deltax=(float) 1.5;
-	 	  		  		backX = false;
+	 	  		  		     backX = false;
 	 	    	    	 }
 	 	      }
 	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
@@ -462,7 +464,7 @@ public class pageclient extends JFrame {
 	 	    	    	 {
 	 	    		         deltay=(float) 0.75;
 	 		  		         deltax=(float) 1.25;
-	 		  		      backX = false;
+	 		  		         backX = false;
 	 	    	    	 }
 	 	      }
 	 	if((x >= pan.getPosC()+50)&&(x < pan.getPosC()+100))
