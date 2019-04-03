@@ -192,7 +192,6 @@ public class pageclient extends JFrame {
 		container.addMouseListener(null);
 	    //Terrain.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 	    go();
-	    
 	    JTextArea Messagerie = new JTextArea();
 		Messagerie.setEditable(false);
 		frame.getContentPane().add(Messagerie, "cell 3 3,grow");

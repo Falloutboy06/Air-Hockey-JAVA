@@ -34,7 +34,8 @@ public class Serveur extends Thread {
 		
 		try {
 			serv = new ServerSocket(port);
-		} catch (Exception e) {
+		} catch (Exception e) {  
+			
 			System.out.println("Erreur dans la creation du serveur : " + e);	
 		}
 		Thread t = new Thread(this);
@@ -64,9 +65,7 @@ public class Serveur extends Thread {
 			socket.close();
 
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 		}*/
 
 	}
