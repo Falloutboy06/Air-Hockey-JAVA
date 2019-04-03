@@ -200,8 +200,8 @@ public class pageclient extends JFrame {
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ID==1){Messagerie.append(J1+"a écris :"+Message.getText()+"\n\r");}
-				if(ID==2){Messagerie.append(J1+"a écris :"+Message.getText()+"\n\r");}
+				if(ID==1){Messagerie.append(J1+" a écris :"+Message.getText()+"\n\r");}
+				if(ID==2){Messagerie.append(J1+" a écris :"+Message.getText()+"\n\r");}
 			}
 		});
 		frame.getContentPane().add(btnNewButton, "cell 3 2");		

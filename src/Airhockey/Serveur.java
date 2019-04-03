@@ -14,8 +14,7 @@ public class Serveur extends Thread {
 	private String IP;
 	private ServerSocket serv;
 	private int port;
-    JTextField textField = new JTextField(40);
-    JTextArea messageArea = new JTextArea(8, 40);
+
 	/*public static void main(String[] args) {
 		try {
 				ServerSocket socketServeur = new ServerSocket(port);
@@ -64,15 +63,6 @@ public class Serveur extends Thread {
 			message = in.readLine();
 
 			out.println("Bonjour " + message);
-
-
-	                out.println(getName());
-	            
-	                textField.setEditable(true);
-	          
-	                messageArea.append(message.substring(8) + "\n");
-	            
-	        
 
 			socket.close();
 
