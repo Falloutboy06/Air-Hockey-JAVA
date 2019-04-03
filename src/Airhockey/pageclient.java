@@ -176,14 +176,15 @@ public class pageclient extends JFrame {
 		Message = new JTextField();
 		frame.getContentPane().add(Message, "flowx,cell 3 2,grow");
 		Message.setColumns(10);
-
-		bouton.addActionListener(new BoutonListener()); 
-		bouton.setEnabled(false);
-		bouton2.addActionListener(new Bouton2Listener());
 		
+		
+		
+
 		//container.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
+		/********Déclaration du Jpanel pour le jeu*********/
 	    container.setLayout(new BorderLayout());
 	    container.add(pan, BorderLayout.CENTER);
+	    /********Boutons go et stop*********/
 	    bouton.addActionListener(new BoutonListener()); 
 	    bouton.setEnabled(false);
 	    bouton2.addActionListener(new Bouton2Listener());
@@ -191,8 +192,8 @@ public class pageclient extends JFrame {
 	    JPanel Terrain = new JPanel();
 	    Terrain.add(bouton);
 	    Terrain.add(bouton2);
-		//container.add(Terrain, BorderLayout.SOUTH);
-	    //this.setContentPane(container);
+		container.add(Terrain, BorderLayout.SOUTH);
+	    this.setContentPane(container);
 	    this.setVisible(true);
 		frame.getContentPane().add(container, "cell 1 3,grow");
 		container.addMouseListener(null);
@@ -271,10 +272,12 @@ public class pageclient extends JFrame {
 	 	    float deltay=(0);
 
 	 	    while(this.animated){
+	 	    	/********Verification collision murs*********/
 	 	      if(x < 1)backX = false;
 	 	      if(x > pan.getWidth()-50)backX = true;          
 	 	      if(y < 1)backY = false;
 	 	      if(y > pan.getHeight()-50)backY = true;
+	 	     /********Verification but*********/
 	 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x < 10))but1 = true;
 	 	      else but1 = false;
 	 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
@@ -467,7 +470,7 @@ public class pageclient extends JFrame {
 	 		  		      backX = false;
 	 	    	    	 }
 	 	      }
-	 	     /****************************************************/
+	 	     /*******************Mouvement du pallet********************/
 	 	      if(!backX)pan.setPosX(x=x+deltax);
 	 	      else pan.setPosX(x=x-deltax);
 	 	      if(!backY) pan.setPosY(y=y+deltay);
@@ -483,7 +486,7 @@ public class pageclient extends JFrame {
  	    }     
  	  }
 
-
+	 /********Boutons Start*********/
 
  	  public class BoutonListener implements ActionListener{
  		    public void actionPerformed(ActionEvent arg0) {
@@ -499,7 +502,7 @@ public class pageclient extends JFrame {
  		    }
  		  }
 
-
+ 	 /********Boutons stop*********/
  		  class Bouton2Listener  implements ActionListener{
  		    public void actionPerformed(ActionEvent e) {
  		      animated = false;      
