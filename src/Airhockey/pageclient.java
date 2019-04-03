@@ -68,7 +68,7 @@ public class pageclient extends JFrame {
 	private JFrame frame;
 	private JTextField Message;
 	private static String J1;
-	private static String Jadv;
+	private static String J2;
 	private static String IP;
 	private static int ID;
 	final static int port = 2009;
@@ -165,7 +165,13 @@ public class pageclient extends JFrame {
 		frame.getContentPane().add(Message, "flowx,cell 3 2,grow");
 		Message.setColumns(10);
 		
-		
+		//Test pour positionner le nom des joueur (à ne pas déplacer!!!)
+		if(ID==1) {
+			TextNom1.setText(J1);
+		}
+		else if(ID==2) {
+			TextNom2.setText(J1);
+		}
 		
 
 		//container.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
@@ -208,10 +214,8 @@ public class pageclient extends JFrame {
 		if(ID==1) {
 			System.out.println(J1);
 			CreationServeur();
-			TextNom1.setText(""+J1+"");
 		}
 		else if(ID==2) {
-			TextNom2.setText(""+J1+"");
 			ConnexionServeur();
 		}
 		initialize();
