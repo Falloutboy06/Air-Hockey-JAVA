@@ -38,7 +38,8 @@ public class Serveur extends Thread {
 			System.out.println("Erreur dans la creation du serveur : " + e);	
 		}
 		Thread t = new Thread(this);
-		t.start();				
+		t.start();	
+		System.out.println("serveur lancé");
 	}
 	
 	public void run() {
@@ -46,7 +47,7 @@ public class Serveur extends Thread {
 	}
 	public void traitements() {
 
-		try {
+		/*try {
 
 			String message = "";
 
@@ -66,7 +67,7 @@ public class Serveur extends Thread {
 
 			e.printStackTrace();
 
-		}
+		}*/
 
 	}
 

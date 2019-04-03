@@ -173,7 +173,6 @@ public class pageclient extends JFrame {
 			TextNom2.setText(J1);
 		}
 		
-
 		//container.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 		/********Déclaration du Jpanel pour le jeu*********/
 	    container.setLayout(new BorderLayout());
