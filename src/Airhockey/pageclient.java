@@ -98,6 +98,8 @@ public class pageclient extends JFrame {
 	private int PointJ2=0;
 	private JLabel lblPointJ1;
 	private JLabel lblPointJ2;
+	private JLabel TextNom1;
+	private JLabel TextNom2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -120,11 +122,13 @@ public class pageclient extends JFrame {
 		IP=S2;
 		ID=I1;
 		if(ID==1) {
+			TextNom1.setText(S1);
 			CreationServeur();
+			ConnexionServeur();
 		}
 		else if(ID==2) {
-			/*Connexion au serveur*/
-			//Socket socket = new Socket(IP,port);
+			TextNom1.setText(S1);
+			ConnexionServeur();
 		}
 		initialize();
 		pageclient.this.frame.setVisible(true);
@@ -139,6 +143,7 @@ public class pageclient extends JFrame {
 	{
 		/*Connexion au serveur*/
 		//Socket socket = new Socket(IP,port);
+		System.out.println("Connexion au serveur");
 	}
 	
 		  
@@ -149,29 +154,31 @@ public class pageclient extends JFrame {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new MigLayout("", "[100][1200][][500,grow][100]", "[100][50][50][800,grow][100]"));
 		
-		JLabel lblNewLabel_1 = new JLabel("Votre nom");
-		frame.getContentPane().add(lblNewLabel_1, "cell 1 1,grow");
+		JLabel NomJ1 = new JLabel("Nom joueur 1");
+		frame.getContentPane().add(NomJ1, "cell 1 1,grow");
 		
-		JLabel lblNewLabel_7 = new JLabel("");
-		frame.getContentPane().add(lblNewLabel_7, "cell 1 1,grow");
+		JLabel TextNom1 = new JLabel("");
+		frame.getContentPane().add(TextNom1, "cell 1 1,grow");
 		
-		JLabel lblNewLabel_2 = new JLabel("Nom de l'adversaire");
-		frame.getContentPane().add(lblNewLabel_2, "cell 1 1,grow");
+		JLabel NomJ2 = new JLabel("Nom joueur 2");
+		frame.getContentPane().add(NomJ2, "cell 1 1,grow");
 		
 		JLabel lblNewLabel_5 = new JLabel("Point joueur 1");
 		frame.getContentPane().add(lblNewLabel_5, "flowx,cell 1 2,grow");
 		
-		lblPointJ1 = new JLabel("0");
+		lblPointJ1 = new JLabel("");
 		frame.getContentPane().add(lblPointJ1, "cell 1 2,grow");
+		lblPointJ1.setText(""+PointJ1+"");
 		
 		JLabel lblNewLabel_6 = new JLabel("Point joueur 2");
 		frame.getContentPane().add(lblNewLabel_6, "cell 1 2,grow");
 		
-		lblPointJ2 = new JLabel("0");
+		lblPointJ2 = new JLabel("");
 		frame.getContentPane().add(lblPointJ2, "cell 1 2,grow");
+		lblPointJ2.setText(""+PointJ2+"");
 		
-		JLabel lblNewLabel_8 = new JLabel("");
-		frame.getContentPane().add(lblNewLabel_8, "cell 1 1,grow");
+		JLabel TextNom2 = new JLabel("");
+		frame.getContentPane().add(TextNom2, "cell 1 1,grow");
 		
 		Message = new JTextField();
 		frame.getContentPane().add(Message, "flowx,cell 3 2,grow");
@@ -191,25 +198,26 @@ public class pageclient extends JFrame {
 	    JPanel Terrain = new JPanel();
 	    Terrain.add(bouton);
 	    Terrain.add(bouton2);
-		//container.add(Terrain, BorderLayout.SOUTH);
-	    //this.setContentPane(container);
+		container.add(Terrain, BorderLayout.SOUTH);
+	    this.setContentPane(container);
 	    this.setVisible(true);
 		frame.getContentPane().add(container, "cell 1 3,grow");
 		container.addMouseListener(null);
 	    //Terrain.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 	    go();
-	     
+	    
+	    JTextArea Messagerie = new JTextArea();
+		Messagerie.setEditable(false);
+		frame.getContentPane().add(Messagerie, "cell 3 3,grow");
+		
 		JButton btnNewButton = new JButton("Envoyer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if(ID==1){Messagerie.append(TextNom1+"a écris :"+Message.getText());}
+				if(ID==2){Messagerie.append(TextNom2+"a écris :"+Message.getText());}
 			}
 		});
-		frame.getContentPane().add(btnNewButton, "cell 3 2");
-		
-		JTextArea Messagerie = new JTextArea();
-		Messagerie.setEditable(false);
-		frame.getContentPane().add(Messagerie, "cell 3 3,grow");
+		frame.getContentPane().add(btnNewButton, "cell 3 2");		
 	}
 	private void ButGauche()//le Joueur 2 marque dans le but Gauche
 	{
@@ -223,7 +231,7 @@ public class pageclient extends JFrame {
 		lblPointJ2.setText(""+PointJ2+"");
 		TestVictoire();
 	}
-	private void ButDroit()//Le joueur 1 marque dans le but Droit
+	private void ButDroit()//Le Joueur 1 marque dans le but Droit
 	{
 		pan.setPosY(pan.getHeight()/2); 
  	  	pan.setPosX(pan.getWidth()/2+100);
@@ -262,7 +270,6 @@ public class pageclient extends JFrame {
 			bouton.setEnabled(true);
 			bouton2.setEnabled(false);
 		}
-			
 	}
 	 private void go(){
 	 	    x = pan.getPosX();

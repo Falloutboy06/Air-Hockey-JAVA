@@ -7,7 +7,6 @@ import java.io.*;
 public class Serveur extends Thread {
 
 	final static int port = 2009;
-
 	private Socket socket;
 	private String IP;
 
@@ -24,7 +23,6 @@ public class Serveur extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
 	public Serveur(Socket socket) {
 		this.socket=socket;
 		this.IP=IP;
