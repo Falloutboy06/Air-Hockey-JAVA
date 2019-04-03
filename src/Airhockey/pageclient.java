@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-
+import java.net.ServerSocket;
 import net.miginfocom.swing.MigLayout;
 import Airhockey.pageclient.Bouton2Listener;
 import Airhockey.pageclient.BoutonListener;
@@ -95,7 +95,7 @@ public class pageclient extends JFrame {
 	private BufferedReader in;
 	private PrintWriter out;
 	private int PointJ1=0;
-	private int PointJ2=0;
+	private int PointJ2=-1;
 	private JLabel lblPointJ1;
 	private JLabel lblPointJ2;
 
