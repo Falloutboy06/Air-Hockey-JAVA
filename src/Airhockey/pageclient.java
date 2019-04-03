@@ -47,11 +47,9 @@ class TestImagePanel extends JPanel {
 	 
 	private static final long serialVersionUID = 1L;
 	private Image img;
- 
 	public TestImagePanel(String img) {
 		this(new ImageIcon(img).getImage());
 	}
- 
 	public TestImagePanel(Image img) {
 		this.img = img;
 		Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
@@ -60,14 +58,11 @@ class TestImagePanel extends JPanel {
 		setMaximumSize(size);
 		setSize(size);
 		setLayout(null);
-		
 	}
- 
 	public void paintComponent(Graphics g) {
 		g.drawImage(img, 0, 0, null);
 	}
 }
-
 public class pageclient extends JFrame {
 
 	private JFrame frame;
@@ -247,7 +242,8 @@ public class pageclient extends JFrame {
 	private void TestVictoire()
 	{
 		if(PointJ1==10) {
-			// AFFICHAGE POP UP VICTOIRE JOUEUR1 A FAIRE
+			String st1 = "Victoire Joueur 1 !!!";
+			JOptionPane.showMessageDialog(null, st1);
 			PointJ1=0;
 			lblPointJ1.setText(""+PointJ1+"");
 			PointJ2=0;
@@ -259,7 +255,8 @@ public class pageclient extends JFrame {
 			bouton.setEnabled(true);
 			bouton2.setEnabled(false);
 		}else if(PointJ2==10){
-			// AFFICHAGE POP UP VICTOIRE JOUEUR2 A FAIRE
+			String st2 = "Victoire Joueur 2 !!!";
+			JOptionPane.showMessageDialog(null, st2);
 			PointJ1=0;
 			lblPointJ1.setText(""+PointJ1+"");
 			PointJ2=0;
