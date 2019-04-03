@@ -73,6 +73,7 @@ public class pageclient extends JFrame {
 	private JFrame frame;
 	private JTextField Message;
 	private static String J1;
+	private static String Jadv;
 	private static String IP;
 	private static int ID;
 	final static int port = 2009;
@@ -93,6 +94,10 @@ public class pageclient extends JFrame {
 	private Socket socket;
 	private BufferedReader in;
 	private PrintWriter out;
+	private int PointJ1=0;
+	private int PointJ2=0;
+	private JLabel lblPointJ1;
+	private JLabel lblPointJ2;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -156,14 +161,14 @@ public class pageclient extends JFrame {
 		JLabel lblNewLabel_5 = new JLabel("Point joueur 1");
 		frame.getContentPane().add(lblNewLabel_5, "flowx,cell 1 2,grow");
 		
-		JLabel lblNewLabel_3 = new JLabel("0");
-		frame.getContentPane().add(lblNewLabel_3, "cell 1 2,grow");
+		lblPointJ1 = new JLabel("0");
+		frame.getContentPane().add(lblPointJ1, "cell 1 2,grow");
 		
 		JLabel lblNewLabel_6 = new JLabel("Point joueur 2");
 		frame.getContentPane().add(lblNewLabel_6, "cell 1 2,grow");
 		
-		JLabel lblNewLabel_4 = new JLabel("0");
-		frame.getContentPane().add(lblNewLabel_4, "cell 1 2,grow");
+		lblPointJ2 = new JLabel("0");
+		frame.getContentPane().add(lblPointJ2, "cell 1 2,grow");
 		
 		JLabel lblNewLabel_8 = new JLabel("");
 		frame.getContentPane().add(lblNewLabel_8, "cell 1 1,grow");
@@ -186,8 +191,8 @@ public class pageclient extends JFrame {
 	    JPanel Terrain = new JPanel();
 	    Terrain.add(bouton);
 	    Terrain.add(bouton2);
-		container.add(Terrain, BorderLayout.SOUTH);
-	    this.setContentPane(container);
+		//container.add(Terrain, BorderLayout.SOUTH);
+	    //this.setContentPane(container);
 	    this.setVisible(true);
 		frame.getContentPane().add(container, "cell 1 3,grow");
 		container.addMouseListener(null);
@@ -206,7 +211,59 @@ public class pageclient extends JFrame {
 		Messagerie.setEditable(false);
 		frame.getContentPane().add(Messagerie, "cell 3 3,grow");
 	}
-	
+	private void ButGauche()//le Joueur 2 marque dans le but Gauche
+	{
+		pan.setPosY(pan.getHeight()/2);
+ 	  	pan.setPosX(pan.getWidth()/2-100);
+		animated = false;      
+		animated2 = false; 
+		bouton.setEnabled(true);
+		bouton2.setEnabled(false);
+		PointJ2++;
+		lblPointJ2.setText(""+PointJ2+"");
+		TestVictoire();
+	}
+	private void ButDroit()//Le joueur 1 marque dans le but Droit
+	{
+		pan.setPosY(pan.getHeight()/2); 
+ 	  	pan.setPosX(pan.getWidth()/2+100);
+		animated = false;      
+		animated2 = false; 
+		bouton.setEnabled(true);
+		bouton2.setEnabled(false);
+		PointJ1++;
+		lblPointJ1.setText(""+PointJ1+"");
+		TestVictoire();
+	}
+	private void TestVictoire()
+	{
+		if(PointJ1==10) {
+			// AFFICHAGE POP UP VICTOIRE JOUEUR1 A FAIRE
+			PointJ1=0;
+			lblPointJ1.setText(""+PointJ1+"");
+			PointJ2=0;
+			lblPointJ2.setText(""+PointJ2+"");
+			pan.setPosY(pan.getHeight()/2); 
+	 	  	pan.setPosX(pan.getWidth()/2);
+			animated = false;      
+			animated2 = false; 
+			bouton.setEnabled(true);
+			bouton2.setEnabled(false);
+		}else if(PointJ2==10){
+			// AFFICHAGE POP UP VICTOIRE JOUEUR2 A FAIRE
+			PointJ1=0;
+			lblPointJ1.setText(""+PointJ1+"");
+			PointJ2=0;
+			lblPointJ2.setText(""+PointJ2+"");
+			pan.setPosY(pan.getHeight()/2); 
+	 	  	pan.setPosX(pan.getWidth()/2);
+			animated = false;      
+			animated2 = false; 
+			bouton.setEnabled(true);
+			bouton2.setEnabled(false);
+		}
+			
+	}
 	 private void go(){
 	 	    x = pan.getPosX();
 	 	    y = pan.getPosY();
@@ -415,25 +472,8 @@ public class pageclient extends JFrame {
 	 	      else pan.setPosX(x=x-deltax);
 	 	      if(!backY) pan.setPosY(y=y+deltay);
 	 	      else pan.setPosY(y=y-deltay);
- 	      if(but1)//gauche
- 	    	  {
- 	    	  	pan.setPosY(pan.getHeight()/2);
- 	    	  	pan.setPosX(pan.getWidth()/2);
-	    		      animated = false;      
-	    		      animated2 = false; 
-	    		      bouton.setEnabled(true);
-	    		      bouton2.setEnabled(false);
-
- 	    	  }
- 	      if(but2)//droite
- 	    	  {
- 	    	  	pan.setPosY(pan.getHeight()/2); 
- 	    	  	pan.setPosX(pan.getWidth()/2);
-	    		      animated = false;      
-	    		      animated2 = false; 
-	    		      bouton.setEnabled(true);
-	    		      bouton2.setEnabled(false);
- 	    	  }
+ 	      if(but1){ButGauche();}
+ 	      if(but2){ButDroit();}
  	      pan.repaint();
  	      try {
  	        Thread.sleep(3);
