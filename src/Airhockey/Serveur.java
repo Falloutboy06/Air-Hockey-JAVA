@@ -2,6 +2,10 @@ package Airhockey;
 
 import java.net.*;
 import java.util.LinkedList;
+
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
 import java.io.*;
 
 public class Serveur extends Thread {
@@ -10,7 +14,8 @@ public class Serveur extends Thread {
 	private String IP;
 	private ServerSocket serv;
 	private int port;
-
+    JTextField textField = new JTextField(40);
+    JTextArea messageArea = new JTextArea(8, 40);
 	/*public static void main(String[] args) {
 		try {
 				ServerSocket socketServeur = new ServerSocket(port);
@@ -25,7 +30,6 @@ public class Serveur extends Thread {
 		}
 	}*/
 	public Serveur(int port) {
-		
 		this.port = port;
 		creationServeur();
 	}	
@@ -47,7 +51,7 @@ public class Serveur extends Thread {
 	}
 	public void traitements() {
 
-		/*try {
+		try {
 
 			String message = "";
 
@@ -61,13 +65,22 @@ public class Serveur extends Thread {
 
 			out.println("Bonjour " + message);
 
+
+	                out.println(getName());
+	            
+	                textField.setEditable(true);
+	          
+	                messageArea.append(message.substring(8) + "\n");
+	            
+	        
+
 			socket.close();
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 
-		}*/
+		}
 
 	}
 
