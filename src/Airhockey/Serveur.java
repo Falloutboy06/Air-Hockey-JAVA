@@ -12,12 +12,12 @@ public class Serveur extends Thread {
 
 	public static void main(String[] args) {
 		try {
-			ServerSocket socketServeur = new ServerSocket(port);
-			System.out.println("Lancement du serveur");
-			while (true) {
-				Socket socketClient = socketServeur.accept();
-				Serveur t = new Serveur(socketClient);
-				t.start();
+				ServerSocket socketServeur = new ServerSocket(port);
+				System.out.println("Lancement du serveur");
+				while (true) {
+					Socket socketClient = socketServeur.accept();
+					Serveur t = new Serveur(socketClient);
+					t.start();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
