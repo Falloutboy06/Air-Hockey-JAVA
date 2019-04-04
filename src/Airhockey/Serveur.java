@@ -6,7 +6,11 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.io.*;
+import Airhockey.Panneau;
 
 public class Serveur extends Thread {
 
@@ -18,24 +22,26 @@ public class Serveur extends Thread {
 	private BufferedReader in;
 	private PrintWriter out;
 	Scanner sc = new Scanner(System.in);
-	
 	public Serveur(int port) {
 		this.port = port;
 		creationServeur();
 	}	
 	public void creationServeur() {
+
 		
 		try {
 			serveurSocket = new ServerSocket(port);
 		    clientSocket = serveurSocket.accept();
 		    Thread envoi= new Thread(new Runnable() {
 		          String msg;
+
 		          @Override
 		          public void run() {
 		             while(true){
 		                msg = sc.nextLine();
 		                System.out.println(msg);
 		                out.flush();
+
 		             }
 		          }
 		       });

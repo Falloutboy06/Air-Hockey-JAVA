@@ -99,7 +99,10 @@ public class pageclient extends JFrame {
 	private JLabel TextNom2;
 	private Serveur Serv;
 	private Scanner sc = new Scanner(System.in);
-
+	private int posXJ1;
+	private int posYJ1;
+	private int posXJ2;
+	private int posYJ2;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -123,6 +126,7 @@ public class pageclient extends JFrame {
 	}  
 	public void ConnexionServeur() 
 	{
+		Point point = MouseInfo.getPointerInfo().getLocation();
 		System.out.println("C");
 		try {
 			clientSocket = new Socket(IP,port);
@@ -130,8 +134,19 @@ public class pageclient extends JFrame {
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
 			Thread envoyer = new Thread(new Runnable() {
 	             String msg;
+	             
 	              public void run() {
 	                while(true){
+		                if (ID==1)
+		                {
+		                	posXJ1 = (int)point.getX()-150;
+		                	posYJ1 = (int)point.getY()-250;
+		                }
+		                if (ID==2)
+		                {
+			                posXJ2 = (int)point.getX()-150;
+			                posYJ2 = (int)point.getY()-250;
+		                }
 	                  msg = sc.nextLine();
 	                  out.println(msg);
 	                  out.flush();
@@ -147,6 +162,16 @@ public class pageclient extends JFrame {
 	               try {
 	                 msg = in.readLine();
 	                 while(msg!=null){
+			                if (ID==1)
+			                {
+			                	pan.setPosA(posXJ1);
+			                	pan.setPosB(posYJ1);
+			                }
+			                if (ID==2)
+			                {
+			                	pan.setPosA(posXJ2);
+			                	pan.setPosB(posYJ2);
+			                }
 	                    System.out.println("Serveur : "+msg);
 	                    msg = in.readLine();
 	                 }
@@ -251,6 +276,7 @@ public class pageclient extends JFrame {
 		J1=S1;
 		IP=S2;
 		ID=I1;
+		pan.setJoueur(ID);
 		if(ID==1) {
 			System.out.println(J1);
 			CreationServeur();
@@ -333,6 +359,10 @@ public class pageclient extends JFrame {
 	 	      else but1 = false;
 	 	      if((y > (pan.getHeight()/2)-100)&&(y < (pan.getHeight()/2)+100)&&(x>pan.getWidth()-70))but2 = true;
 	 	      else but2 = false;
+	 	      
+/*****************************JOUEUR 1************************************/	 		 	      
+	 	      
+	 	      
 	/*******************Face du haut*********************/ 	     
 	 	      if((y >= pan.getPosD()-50)&&(y < pan.getPosD()+25))
 	 	      {
@@ -520,6 +550,199 @@ public class pageclient extends JFrame {
 	 		  		      backX = false;
 	 	    	    	 }
 	 	      }
+	 	
+/*****************************JOUEUR 2************************************/	 	
+	 	
+		/*******************Face du haut*********************/ 	     
+	      if((y >= pan.getPosB()-50)&&(y < pan.getPosB()+25))
+	      {
+	    	  if((x >= pan.getPosA()-75)&&(x < pan.getPosA()-40))
+	    	    	 {
+	    		  		 deltax=1;
+	    		  		 deltay=1;
+	    	    		 backY = true;
+	    	    	 }
+	      }
+	     if((y >= pan.getPosB()-50)&&(y < pan.getPosB()+25))
+	      {
+	    	  if((x >= pan.getPosA()-40)&&(x < pan.getPosA()-5))
+	    	    	 {
+			    		 deltax=(float) 0.75;
+		  		  		 deltay=(float) 1.25;
+	    	    		 backY = true;
+	    	    	 }
+	      }
+	    if((y >= pan.getPosB()-50)&&(y < pan.getPosB()+25))
+	      {
+	    	  if((x >= pan.getPosA()-5)&&(x < pan.getPosA()+30))
+	    	    	 {
+	    		   		 deltax=(float) 0;
+	  		  		     deltay=(float) 1.5;
+	    	    		 backY = true;
+	    	    	 }
+	      }
+	   if((y >= pan.getPosB()-50)&&(y < pan.getPosB()+25))
+	      {
+	    	  if((x >= pan.getPosA()+30)&&(x <= pan.getPosA()+65))
+	    	    	 {
+	    		         deltax=(float) 0.75;
+		  		         deltay=(float) 1.25;
+	    	    		 backY = true;
+	    	    	 }
+	      }
+	   if((y >= pan.getPosB()-50)&&(y < pan.getPosB()+25))
+	      {
+	    	  if((x >= pan.getPosA()+65)&&(x <= pan.getPosA()+100))
+	    	    	 {
+	    		         deltax=(float) 1.0;
+		  		         deltay=(float) 1.0;
+	    	    		 backY = true;
+	    	    	 }
+	      }
+	      
+	  /*******************Face du bas*********************/	   
+	   
+	  if((y <= pan.getPosB()+100)&&(y > pan.getPosB()+50))
+	      {
+	    	  if((x >= pan.getPosA()-75)&&(x < pan.getPosA()-40))
+	    	    	 {
+	    		  		 deltax=1;
+	    		  		 deltay=1;
+	    	    		 backY = false;
+	    	    	 }
+	      }
+	 if((y <= pan.getPosB()+100)&&(y > pan.getPosB()+50))
+	      {
+	    	  if((x >= pan.getPosB()-40)&&(x < pan.getPosB()-5))
+	    	    	 {
+			    		 deltax=(float) 0.75;
+		  		  		 deltay=(float) 1.25;
+	    	    		 backY = false;
+	    	    	 }
+	      }
+	if((y <= pan.getPosB()+100)&&(y > pan.getPosB()+50))
+	      {
+	    	  if((x >= pan.getPosA()-5)&&(x < pan.getPosA()+30))
+	    	    	 {
+	    		   		 deltax=(float) 0;
+	  		  		     deltay=(float) 1.5;
+	    	    		 backY = false;
+	    	    	 }
+	      }
+	if((y <= pan.getPosB()+100)&&(y > pan.getPosB()+50))
+	      {
+	    	  if((x >= pan.getPosA()+30)&&(x <= pan.getPosA()+65))
+	    	    	 {
+	    		         deltax=(float) 0.75;
+		  		         deltay=(float) 1.25;
+	    	    		 backY = false;
+	    	    	 }
+	      }
+	if((y <= pan.getPosB()+100)&&(y > pan.getPosB()+50))
+	      {
+	    	  if((x >= pan.getPosA()+65)&&(x <= pan.getPosA()+100))
+	    	    	 {
+	    		         deltax=(float) 1.0;
+		  		         deltay=(float) 1.0;
+	    	    		 backY = false;
+	    	    	 }
+	      }
+	  /*******************Face de gauche*********************/
+	      
+	     if((x >= pan.getPosA()-50)&&(x < pan.getPosA()))
+	      {
+	    	  if((y >= pan.getPosB()-75)&&(y < pan.getPosB()-40))
+	    	    	 {
+	    		  		 deltax=1;
+	    		  		 deltay=1;
+	    	    		 backX = true;
+	    	    	 }
+	      }
+	    if((x >= pan.getPosA()-50)&&(x < pan.getPosA()))
+	      {
+	    	  if((y >= pan.getPosB()-40)&&(y < pan.getPosB()-5))
+	    	    	 {
+			    		 deltay=(float) 0.75;
+		  		  		 deltax=(float) 1.25;
+		  		  		backX = true;
+	    	    	 }
+	      }
+	   if((x >= pan.getPosA()-50)&&(x < pan.getPosA()))
+	      {
+	    	  if((y >= pan.getPosB()-5)&&(y < pan.getPosB()+30))
+	    	    	 {
+	    		   		 deltay=(float) 0;
+	  		  		     deltax=(float) 1.5;
+	  		  		 backX = true;
+	    	    	 }
+	      }
+	  if((x >= pan.getPosA()-50)&&(x < pan.getPosA()))
+	      {
+	    	  if((y >= pan.getPosB()+30)&&(y <= pan.getPosB()+65))
+	    	    	 {
+	    		         deltay=(float) 0.75;
+		  		         deltax=(float) 1.25;
+		  		       backX = true;
+	    	    	 }
+	      }
+	 if((x >= pan.getPosA()-50)&&(x < pan.getPosA()))
+	      {
+	    	  if((y >= pan.getPosB()+65)&&(y <= pan.getPosB()+100))
+	    	    	 {
+	    		         deltay=(float) 1.0;
+		  		         deltax=(float) 1.0;
+		  		       backX = true;
+	    	    	 }
+	      }
+	     /*******************Face de droite*********************/     
+	if((x >= pan.getPosA()+50)&&(x < pan.getPosA()+100))
+	      {
+	    	  if((y >= pan.getPosB()-75)&&(y < pan.getPosB()-40))
+	    	    	 {
+	    		  		deltax=1;
+	    		  		deltay=1;
+	    		  		backX = false;
+	    	    	 }
+	      }
+	if((x >= pan.getPosA()+50)&&(x < pan.getPosA()+100))
+	      {
+	    	  if((y >= pan.getPosB()-40)&&(y < pan.getPosB()-5))
+	    	    	 {
+			    		 deltay=(float) 0.75;
+		  		  		 deltax=(float) 1.25;
+		  		  	backX = false;
+	    	    	 }
+	      }
+	if((x >= pan.getPosA()+50)&&(x < pan.getPosA()+100))
+	      {
+	    	  if((y >= pan.getPosB()-5)&&(y < pan.getPosB()+30))
+	    	    	 {
+	    		   		 deltay=(float) 0;
+	  		  		     deltax=(float) 1.5;
+	  		  		     backX = false;
+	    	    	 }
+	      }
+	if((x >= pan.getPosA()+50)&&(x < pan.getPosA()+100))
+	      {
+	    	  if((y >= pan.getPosB()+30)&&(y <= pan.getPosB()+65))
+	    	    	 {
+	    		         deltay=(float) 0.75;
+		  		         deltax=(float) 1.25;
+		  		         backX = false;
+	    	    	 }
+	      }
+	if((x >= pan.getPosA()+50)&&(x < pan.getPosA()+100))
+	      {
+	    	  if((y >= pan.getPosB()+65)&&(y <= pan.getPosB()+100))
+	    	    	 {
+	    		         deltay=(float) 1.0;
+		  		         deltax=(float) 1.0;
+		  		      backX = false;
+	    	    	 }
+	      }
+	 	
+	 	
+	 	
 	 	     /*******************Mouvement du pallet********************/
 	 	      if(!backX)pan.setPosX(x=x+deltax);
 	 	      else pan.setPosX(x=x-deltax);
@@ -535,6 +758,8 @@ public class pageclient extends JFrame {
  	      }
  	    }     
  	  }
+	 
+	 
 
 	 /********Boutons Start*********/
 

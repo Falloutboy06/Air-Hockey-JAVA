@@ -15,7 +15,7 @@ public class Panneau extends JPanel {
   private double posB = 50;
   private int posC = 0;
   private int posD = 0;
- 
+  private int Joueur = 0;
   /********Création et position pallet et pad*********/
   public void paintComponent(Graphics g){
     //On choisit une couleur de fond pour le rectangle
@@ -28,10 +28,25 @@ public class Panneau extends JPanel {
     g.fillOval((int)posX, (int)posY,50, 50);
     //On redéfinit une couleur pour les pads
    // g.setColor(Color.blue);
-    
-    g.setColor(Color.red);
-    Point point = MouseInfo.getPointerInfo().getLocation();
-    g.fillOval(posC=(int)point.getX()-150, posD=(int)point.getY()-250, 100, 100);
+    if(Joueur==1)
+    {
+	    g.setColor(Color.red);
+	    Point point = MouseInfo.getPointerInfo().getLocation();
+	    g.fillOval(posC=(int)point.getX()-150, posD=(int)point.getY()-250, 100, 100);
+	    
+	    g.setColor(Color.blue);
+	    //On le dessine aux coordonnées souhaitées
+	    g.fillOval((int)posA, (int)posB,100, 100);
+    }
+    else {
+    	g.setColor(Color.blue);
+	    Point point = MouseInfo.getPointerInfo().getLocation();
+	    g.fillOval(posC=(int)point.getX()-150, posD=(int)point.getY()-250, 100, 100);
+	    
+	    g.setColor(Color.red);
+	    //On le dessine aux coordonnées souhaitées
+	    g.fillOval((int)posA, (int)posB,100, 100);
+    }
   }
 
   public float getPosX() {
@@ -54,7 +69,7 @@ public class Panneau extends JPanel {
 	    return posA;
 	  }
 
-  public void setPosA(double posA) {
+  public void setPosA(int posA) {
 	    this.posA = posA;
 	  }
 
@@ -62,7 +77,7 @@ public class Panneau extends JPanel {
 	    return posB;
 	  }
 
-public void setPosB(double posB) {
+public void setPosB(int posB) {
 	    this.posB = posB;
 	  }
 
@@ -81,5 +96,9 @@ public int getPosC() {
   public void setPosD(int posD) {
     this.posD = posD;
   }
+  
+  public void setJoueur(int Joueur) {
+	    this.Joueur = Joueur;
+	  }
 
 }
