@@ -106,22 +106,10 @@ public class pageclient extends JFrame {
 	private float posPalletY;
 	private float posPalletX;
 	private JTextArea Messagerie;
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					pageclient window2 = new pageclient();
-					window2.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 	public pageclient() {
 		initialize();
 	}
-		
 	public void CreationServeur()
 	{
 		System.out.println("Lancement du serveur");
@@ -130,7 +118,7 @@ public class pageclient extends JFrame {
 	public void ConnexionServeur() 
 	{
 		Point point = MouseInfo.getPointerInfo().getLocation();
-		System.out.println("C");
+		System.out.println("Connexion au serveur");
 		try {
 			clientSocket = new Socket(IP,port);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -160,16 +148,14 @@ public class pageclient extends JFrame {
 	             }
 	         });
 	         envoyer.start();
-	   
 	        Thread recevoir = new Thread(new Runnable() {
 	            String msg;
-	            String msg2;
-	            
 	            @Override
 	            public void run() {
 	               try {
 	                 msg = in.readLine();
 	                 while(msg!=null){
+	                	 
 	                	 if (ID==1)
 	 	                {
 	 	                	pan.setPosA(posXJ2);
@@ -183,7 +169,8 @@ public class pageclient extends JFrame {
 	 	                	pan.setPosX(posPalletX);
 	 	                }
 	 	                msg = in.readLine();
-	 	                Messagerie.setText(msg);  
+	 	                Messagerie.setText(msg);
+	 	                System.out.println(msg);
 	                 }
 	                 System.out.println("Serveur déconecté");
 	                 out.close();
@@ -201,8 +188,6 @@ public class pageclient extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("Connexion au serveur");
 	}
 	private void initialize() {
 
@@ -286,19 +271,19 @@ public class pageclient extends JFrame {
 		IP=S2;
 		ID=I1;
 		pan.setJoueur(ID);
-		initialize();
+		
 		if(ID==1) {
 			System.out.println(J1);
 			CreationServeur();
+			System.out.println("je suis dans le ID1");
 			ConnexionServeur();
-			pageclient.this.frame.setVisible(true);
 		}
 		else if(ID==2) {
 			ConnexionServeur();
-			pageclient.this.frame.setVisible(true);
+			
 		}
-		
-		
+		initialize();
+		pageclient.this.frame.setVisible(true);
 	}
 	private void ButGauche()//le Joueur 2 marque dans le but Gauche
 	{

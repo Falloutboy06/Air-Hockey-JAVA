@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.net.ServerSocket;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.io.*;
@@ -28,6 +27,7 @@ public class Serveur extends Thread {
 	private Panneau pan = new Panneau();
 	Scanner sc = new Scanner(System.in);
 	int ID;
+	String msgin, msgout;
 	
 	
 	public Serveur(int port) {
@@ -43,7 +43,7 @@ public class Serveur extends Thread {
 		    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
 		    Thread envoi= new Thread(new Runnable() {
-		          String msg;
+
 		          @Override
 		          public void run() {
 		             while(true){
@@ -59,24 +59,23 @@ public class Serveur extends Thread {
 				                posXJ2 = (int)point.getX()-150;
 				                posYJ2 = (int)point.getY()-250;
 			                }
-		                msg = sc.nextLine();
-		                System.out.println(msg);
-		                System.out.flush();
+		                out.println(msgout);
+		                out.flush();
 		             }
 		          }
 		       });
 		       envoi.start();
 		   
 		       Thread recevoir= new Thread(new Runnable() {
-		          String msg;
+		       
 		          @Override
 		          public void run() {
 		             try {
-		            	msg = in.readLine();
+		            	msgin = in.readLine();
 		                //tant que le client est connecté
-		                while(msg!=null){
-		                   System.out.println("Client : "+msg);
-		                   msg = in.readLine();
+		                while(msgin!=null){
+		                   //System.out.println("Client : "+msgin);
+		                   msgin = in.readLine();
 		                   if (ID==1)
 			                {
 		                	   pan.setPosA(posXJ2);
@@ -89,6 +88,7 @@ public class Serveur extends Thread {
 		 	                	pan.setPosY(posPalletY);
 		 	                	pan.setPosX(posPalletX);
 			                }
+			               msgout=msgin;
 		                }
 		                //sortir de la boucle si le client a déconecté
 		                System.out.println("Client déconecté");
