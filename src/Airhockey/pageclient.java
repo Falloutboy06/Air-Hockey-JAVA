@@ -106,10 +106,6 @@ public class pageclient extends JFrame {
 	private float posPalletY;
 	private float posPalletX;
 	private JTextArea Messagerie;
-	
-	
-	
-	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -139,9 +135,9 @@ public class pageclient extends JFrame {
 			clientSocket = new Socket(IP,port);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
+			
 			Thread envoyer = new Thread(new Runnable() {
-	             String msg="0";
-	             
+	             String msg;
 	              public void run() {
 
 	                while(true){
@@ -157,7 +153,7 @@ public class pageclient extends JFrame {
 			                posXJ2 = (int)point.getX()-150;
 			                posYJ2 = (int)point.getY()-250;
 		                }
-	                  msg = sc.nextLine();
+	                  msg = Messagerie.getText();
 	                  out.println(msg);
 	                  out.flush();
 	                }
@@ -166,14 +162,13 @@ public class pageclient extends JFrame {
 	         envoyer.start();
 	   
 	        Thread recevoir = new Thread(new Runnable() {
-	            String msg="0";
+	            String msg;
+	            String msg2;
 	            
 	            @Override
 	            public void run() {
-
 	               try {
 	                 msg = in.readLine();
-	                 Messagerie.append(msg);
 	                 while(msg!=null){
 	                	 if (ID==1)
 	 	                {
@@ -187,8 +182,8 @@ public class pageclient extends JFrame {
 	 	                	pan.setPosY(posPalletY);
 	 	                	pan.setPosX(posPalletX);
 	 	                }
-	                    System.out.println("Serveur : "+msg);
-	                    msg = in.readLine();
+	 	                msg = in.readLine();
+	 	                Messagerie.setText(msg);  
 	                 }
 	                 System.out.println("Serveur déconecté");
 	                 out.close();
@@ -283,7 +278,6 @@ public class pageclient extends JFrame {
 				if(ID==2){Messagerie.append(J1+" a écris : "+Message.getText()+"\n\r");}
 				Message.setText("");
 			}
-			
 		});
 		frame.getContentPane().add(btnNewButton, "cell 3 2");		
 	}
@@ -292,15 +286,18 @@ public class pageclient extends JFrame {
 		IP=S2;
 		ID=I1;
 		pan.setJoueur(ID);
+		initialize();
 		if(ID==1) {
 			System.out.println(J1);
 			CreationServeur();
+			ConnexionServeur();
+			pageclient.this.frame.setVisible(true);
 		}
 		else if(ID==2) {
 			ConnexionServeur();
+			pageclient.this.frame.setVisible(true);
 		}
-		initialize();
-		pageclient.this.frame.setVisible(true);
+		
 		
 	}
 	private void ButGauche()//le Joueur 2 marque dans le but Gauche

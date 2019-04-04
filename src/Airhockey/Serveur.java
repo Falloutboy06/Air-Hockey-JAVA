@@ -43,7 +43,7 @@ public class Serveur extends Thread {
 		    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
 		    Thread envoi= new Thread(new Runnable() {
-		          String msg="0";
+		          String msg;
 		          @Override
 		          public void run() {
 		             while(true){
@@ -62,17 +62,17 @@ public class Serveur extends Thread {
 		                msg = sc.nextLine();
 		                System.out.println(msg);
 		                System.out.flush();
-
 		             }
 		          }
 		       });
 		       envoi.start();
 		   
 		       Thread recevoir= new Thread(new Runnable() {
-		          String msg="0" ;
+		          String msg;
 		          @Override
 		          public void run() {
 		             try {
+		            	msg = in.readLine();
 		                //tant que le client est connecté
 		                while(msg!=null){
 		                   System.out.println("Client : "+msg);
