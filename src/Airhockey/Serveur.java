@@ -11,7 +11,7 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 import java.io.*;
 import Airhockey.Panneau;
-
+import Airhockey.pageclient;
 public class Serveur extends Thread {
 
 	private Socket socket;
@@ -21,14 +21,24 @@ public class Serveur extends Thread {
 	private int port=2009;
 	private BufferedReader in;
 	private PrintWriter out;
+	private int posXJ1;
+	private int posYJ1;
+	private int posXJ2;
+	private int posYJ2;
+	private float posPalletY;
+	private float posPalletX;
+	private Panneau pan = new Panneau();
 	Scanner sc = new Scanner(System.in);
+	int ID;
+	
+	
 	public Serveur(int port) {
 		this.port = port;
 		creationServeur();
 	}	
 	public void creationServeur() {
-
-		
+		Point point = MouseInfo.getPointerInfo().getLocation();
+		pan.getJoueur();
 		try {
 			serveurSocket = new ServerSocket(port);
 		    clientSocket = serveurSocket.accept();
@@ -38,6 +48,18 @@ public class Serveur extends Thread {
 		          @Override
 		          public void run() {
 		             while(true){
+		            	 if (ID==1)
+			                {
+			                	posXJ1 = (int)point.getX()-150;
+			                	posYJ1 = (int)point.getY()-250;
+			                	posPalletY= pan.getPosY();
+			                	posPalletX= pan.getPosX();
+			                }
+			               if (ID==2)
+			               {
+				                posXJ2 = (int)point.getX()-150;
+				                posYJ2 = (int)point.getY()-250;
+			                }
 		                msg = sc.nextLine();
 		                System.out.println(msg);
 		                out.flush();
@@ -57,6 +79,19 @@ public class Serveur extends Thread {
 		                while(msg!=null){
 		                   System.out.println("Client : "+msg);
 		                   msg = in.readLine();
+		                   if (ID==1)
+			                {
+		                	   pan.setPosA(posXJ2);
+		 	                	pan.setPosB(posYJ2);
+			                }
+			               if (ID==2)
+			               {
+			            	   pan.setPosA(posXJ1);
+		 	                	pan.setPosB(posYJ1);
+		 	                	pan.setPosY(posPalletY);
+		 	                	pan.setPosX(posPalletX);
+			                }
+			               	
 		                }
 		                //sortir de la boucle si le client a déconecté
 		                System.out.println("Client déconecté");

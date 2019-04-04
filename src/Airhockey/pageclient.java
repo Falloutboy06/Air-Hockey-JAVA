@@ -175,13 +175,13 @@ public class pageclient extends JFrame {
 	                 while(msg!=null){
 	                	 if (ID==1)
 	 	                {
-	 	                	pan.setPosA(posXJ1);
-	 	                	pan.setPosB(posYJ1);
+	 	                	pan.setPosA(posXJ2);
+	 	                	pan.setPosB(posYJ2);
 	 	                }
 	 	                if (ID==2)
 	 	                {
-	 	                	pan.setPosA(posXJ2);
-	 	                	pan.setPosB(posYJ2);
+	 	                	pan.setPosA(posXJ1);
+	 	                	pan.setPosB(posYJ1);
 	 	                	pan.setPosY(posPalletY);
 	 	                	pan.setPosX(posPalletX);
 	 	                }

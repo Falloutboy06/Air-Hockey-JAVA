@@ -100,5 +100,7 @@ public int getPosC() {
   public void setJoueur(int Joueur) {
 	    this.Joueur = Joueur;
 	  }
-
+  public int getJoueur() {
+	    return Joueur;
+	  }
 }
