@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -20,8 +19,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.net.ServerSocket;
 import net.miginfocom.swing.MigLayout;
 import Airhockey.pageclient.Bouton2Listener;
@@ -86,7 +88,7 @@ public class pageclient extends JFrame {
 	private float y;
 	private Thread t;
 	private ServerSocket serv;
-	private Socket socket;
+	private Socket clientSocket;
 	private BufferedReader in;
 	private PrintWriter out;
 	private int PointJ1=0;
@@ -96,8 +98,7 @@ public class pageclient extends JFrame {
 	private JLabel TextNom1;
 	private JLabel TextNom2;
 	private Serveur Serv;
-	
-	
+	private Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -111,21 +112,61 @@ public class pageclient extends JFrame {
 			}
 		});
 	}
-	  public pageclient() {
+	public pageclient() {
 		initialize();
 	}
-	//contructeur de la page Client 
 		
 	public void CreationServeur()
 	{
-		//serveur=new Serveur(); appel ouverture serveur//
 		System.out.println("Lancement du serveur");
 		Serv = new Serveur(port);
 	}  
-	public void ConnexionServeur()
+	public void ConnexionServeur() 
 	{
-		/*Connexion au serveur*/
-		//Socket socket = new Socket(IP,port);
+		System.out.println("C");
+		try {
+			clientSocket = new Socket(IP,port);
+			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			PrintStream out = new PrintStream(clientSocket.getOutputStream());
+			Thread envoyer = new Thread(new Runnable() {
+	             String msg;
+	              public void run() {
+	                while(true){
+	                  msg = sc.nextLine();
+	                  out.println(msg);
+	                  out.flush();
+	                }
+	             }
+	         });
+	         envoyer.start();
+	   
+	        Thread recevoir = new Thread(new Runnable() {
+	            String msg;
+	            @Override
+	            public void run() {
+	               try {
+	                 msg = in.readLine();
+	                 while(msg!=null){
+	                    System.out.println("Serveur : "+msg);
+	                    msg = in.readLine();
+	                 }
+	                 System.out.println("Serveur déconecté");
+	                 out.close();
+	                 clientSocket.close();
+	               } catch (IOException e) {
+	                   e.printStackTrace();
+	               }
+	            }
+	        });
+	        recevoir.start();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		System.out.println("Connexion au serveur");
 	}
 	private void initialize() {
@@ -173,7 +214,6 @@ public class pageclient extends JFrame {
 			TextNom2.setText(J1);
 		}
 		
-		//container.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 		/********Déclaration du Jpanel pour le jeu*********/
 	    container.setLayout(new BorderLayout());
 	    container.add(pan, BorderLayout.CENTER);
@@ -187,10 +227,10 @@ public class pageclient extends JFrame {
 	    Terrain.add(bouton2);
 		container.add(Terrain, BorderLayout.SOUTH);
 	    this.setContentPane(container);
-	    this.setVisible(true);
+	    this.setVisible(false);
 		frame.getContentPane().add(container, "cell 1 3,grow");
 		container.addMouseListener(null);
-	    //Terrain.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
+	    //container.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 	    go();
 	    JTextArea Messagerie = new JTextArea();
 		Messagerie.setEditable(false);

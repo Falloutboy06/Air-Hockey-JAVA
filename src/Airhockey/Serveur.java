@@ -1,42 +1,69 @@
 package Airhockey;
-
 import java.net.*;
 import java.util.LinkedList;
-
+import java.util.Scanner;
+import java.net.Socket;
+import java.net.ServerSocket;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import java.io.*;
 
 public class Serveur extends Thread {
 
 	private Socket socket;
 	private String IP;
-	private ServerSocket serv;
-	private int port;
-
-	/*public static void main(String[] args) {
-		try {
-				ServerSocket socketServeur = new ServerSocket(port);
-				System.out.println("Lancement du serveur");
-				while (true) {
-					Socket socketClient = socketServeur.accept();
-					Serveur t = new Serveur(socketClient);
-					t.start();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}*/
+	private ServerSocket serveurSocket;
+	private Socket clientSocket;
+	private int port=2009;
+	private BufferedReader in;
+	private PrintWriter out;
+	Scanner sc = new Scanner(System.in);
+	
 	public Serveur(int port) {
 		this.port = port;
 		creationServeur();
 	}	
-	
 	public void creationServeur() {
 		
 		try {
-			serv = new ServerSocket(port);
+			serveurSocket = new ServerSocket(port);
+		    clientSocket = serveurSocket.accept();
+		    Thread envoi= new Thread(new Runnable() {
+		          String msg;
+		          @Override
+		          public void run() {
+		             while(true){
+		                msg = sc.nextLine();
+		                System.out.println(msg);
+		                out.flush();
+		             }
+		          }
+		       });
+		       envoi.start();
+		   
+		       Thread recevoir= new Thread(new Runnable() {
+		          String msg ;
+		          @Override
+		          public void run() {
+		             try {
+		                msg = "";
+		                //tant que le client est connecté
+		                while(msg!=null){
+		                   System.out.println("Client : "+msg);
+		                   msg = in.readLine();
+		                }
+		                //sortir de la boucle si le client a déconecté
+		                System.out.println("Client déconecté");
+		                //fermer le flux et la session socket
+		                out.close();
+		                clientSocket.close();
+		                serveurSocket.close();
+		             } catch (IOException e) {
+		                  e.printStackTrace();
+		             }
+		         }
+		      });
+		      recevoir.start();
 		} catch (Exception e) {  
 			
 			System.out.println("Erreur dans la creation du serveur : " + e);	
@@ -45,37 +72,4 @@ public class Serveur extends Thread {
 		t.start();	
 		System.out.println("serveur lancé");
 	}
-	
-	public void run() {
-		traitements();
-	}
-	public void traitements() {
-
-		try {
-
-			String message = "";
-
-			System.out.println("Connexion avec le client : " + socket.getInetAddress());
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-			PrintStream out = new PrintStream(socket.getOutputStream());
-
-			message = in.readLine();
-
-			out.println("Bonjour " + message);
-
-			socket.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-<<<<<<< HEAD
-		}*/
-=======
-
-		}
->>>>>>> branch 'master' of https://github.com/Falloutboy06/Air-Hockey-JAVA
-
-	}
-
 }
