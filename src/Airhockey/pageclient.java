@@ -103,6 +103,12 @@ public class pageclient extends JFrame {
 	private int posYJ1;
 	private int posXJ2;
 	private int posYJ2;
+	private float posPalletY;
+	private float posPalletX;
+	
+	
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -136,11 +142,25 @@ public class pageclient extends JFrame {
 	             String msg;
 	             
 	              public void run() {
+		                if (ID==1)
+		                {
+		                	posXJ1 = (int)point.getX()-150;
+		                	posYJ1 = (int)point.getY()-250;
+		                	posPalletY= pan.getPosY();
+		                	posPalletX= pan.getPosX();
+		                }
+		                if (ID==2)
+		                {
+			                posXJ2 = (int)point.getX()-150;
+			                posYJ2 = (int)point.getY()-250;
+		                }
 	                while(true){
 		                if (ID==1)
 		                {
 		                	posXJ1 = (int)point.getX()-150;
 		                	posYJ1 = (int)point.getY()-250;
+		                	posPalletY= pan.getPosY();
+		                	posPalletX= pan.getPosX();
 		                }
 		                if (ID==2)
 		                {
@@ -157,21 +177,36 @@ public class pageclient extends JFrame {
 	   
 	        Thread recevoir = new Thread(new Runnable() {
 	            String msg;
+	            
 	            @Override
 	            public void run() {
+	                if (ID==1)
+	                {
+	                	pan.setPosA(posXJ1);
+	                	pan.setPosB(posYJ1);
+	                }
+	                if (ID==2)
+	                {
+	                	pan.setPosA(posXJ2);
+	                	pan.setPosB(posYJ2);
+	                	pan.setPosY(posPalletY);
+	                	pan.setPosX(posPalletX);
+	                }
 	               try {
 	                 msg = in.readLine();
 	                 while(msg!=null){
-			                if (ID==1)
-			                {
-			                	pan.setPosA(posXJ1);
-			                	pan.setPosB(posYJ1);
-			                }
-			                if (ID==2)
-			                {
-			                	pan.setPosA(posXJ2);
-			                	pan.setPosB(posYJ2);
-			                }
+	                	 if (ID==1)
+	 	                {
+	 	                	pan.setPosA(posXJ1);
+	 	                	pan.setPosB(posYJ1);
+	 	                }
+	 	                if (ID==2)
+	 	                {
+	 	                	pan.setPosA(posXJ2);
+	 	                	pan.setPosB(posYJ2);
+	 	                	pan.setPosY(posPalletY);
+	 	                	pan.setPosX(posPalletX);
+	 	                }
 	                    System.out.println("Serveur : "+msg);
 	                    msg = in.readLine();
 	                 }
@@ -744,10 +779,13 @@ public class pageclient extends JFrame {
 	 	
 	 	
 	 	     /*******************Mouvement du pallet********************/
+	
+	if(ID==1) {
 	 	      if(!backX)pan.setPosX(x=x+deltax);
 	 	      else pan.setPosX(x=x-deltax);
 	 	      if(!backY) pan.setPosY(y=y+deltay);
 	 	      else pan.setPosY(y=y-deltay);
+	}
  	      if(but1){ButGauche();}
  	      if(but2){ButDroit();}
  	      pan.repaint();
