@@ -19,8 +19,6 @@ public class Serveur extends Thread {
 	private ServerSocket serveurSocket;
 	private Socket clientSocket;
 	private int port=2009;
-	private BufferedReader in;
-	private PrintWriter out;
 	private int posXJ1;
 	private int posYJ1;
 	private int posXJ2;
@@ -42,9 +40,10 @@ public class Serveur extends Thread {
 		try {
 			serveurSocket = new ServerSocket(port);
 		    clientSocket = serveurSocket.accept();
+		    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+			PrintStream out = new PrintStream(clientSocket.getOutputStream());
 		    Thread envoi= new Thread(new Runnable() {
-		          String msg;
-
+		          String msg="0";
 		          @Override
 		          public void run() {
 		             while(true){
@@ -62,7 +61,7 @@ public class Serveur extends Thread {
 			                }
 		                msg = sc.nextLine();
 		                System.out.println(msg);
-		                out.flush();
+		                System.out.flush();
 
 		             }
 		          }
@@ -70,11 +69,10 @@ public class Serveur extends Thread {
 		       envoi.start();
 		   
 		       Thread recevoir= new Thread(new Runnable() {
-		          String msg ;
+		          String msg="0" ;
 		          @Override
 		          public void run() {
 		             try {
-		                msg = "";
 		                //tant que le client est connecté
 		                while(msg!=null){
 		                   System.out.println("Client : "+msg);
@@ -82,7 +80,7 @@ public class Serveur extends Thread {
 		                   if (ID==1)
 			                {
 		                	   pan.setPosA(posXJ2);
-		 	                	pan.setPosB(posYJ2);
+		                	   pan.setPosB(posYJ2);
 			                }
 			               if (ID==2)
 			               {
@@ -91,7 +89,6 @@ public class Serveur extends Thread {
 		 	                	pan.setPosY(posPalletY);
 		 	                	pan.setPosX(posPalletX);
 			                }
-			               	
 		                }
 		                //sortir de la boucle si le client a déconecté
 		                System.out.println("Client déconecté");

@@ -105,6 +105,7 @@ public class pageclient extends JFrame {
 	private int posYJ2;
 	private float posPalletY;
 	private float posPalletX;
+	private JTextArea Messagerie;
 	
 	
 	
@@ -139,7 +140,7 @@ public class pageclient extends JFrame {
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
 			Thread envoyer = new Thread(new Runnable() {
-	             String msg;
+	             String msg="0";
 	             
 	              public void run() {
 
@@ -165,13 +166,14 @@ public class pageclient extends JFrame {
 	         envoyer.start();
 	   
 	        Thread recevoir = new Thread(new Runnable() {
-	            String msg;
+	            String msg="0";
 	            
 	            @Override
 	            public void run() {
 
 	               try {
 	                 msg = in.readLine();
+	                 Messagerie.append(msg);
 	                 while(msg!=null){
 	                	 if (ID==1)
 	 	                {
@@ -270,7 +272,7 @@ public class pageclient extends JFrame {
 		container.addMouseListener(null);
 	    //container.add(new TestImagePanel(new ImageIcon("Terrain hockey.jpg").getImage()));
 	    go();
-	    JTextArea Messagerie = new JTextArea();
+	    Messagerie = new JTextArea();
 		Messagerie.setEditable(false);
 		frame.getContentPane().add(Messagerie, "cell 3 3,grow");
 		
