@@ -43,8 +43,7 @@ public class Serveur extends Thread {
 		    BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
 		    Thread envoi= new Thread(new Runnable() {
-
-		          @Override
+		    	String msg;
 		          public void run() {
 		             while(true){
 		            	 if (ID==1)
@@ -59,23 +58,24 @@ public class Serveur extends Thread {
 				                posXJ2 = (int)point.getX()-150;
 				                posYJ2 = (int)point.getY()-250;
 			                }
-		                out.println(msgout);
-		                out.flush();
+			               		msg=sc.nextLine();
+			                  out.println(msg);
+			                  out.flush();
 		             }
 		          }
 		       });
 		       envoi.start();
 		   
 		       Thread recevoir= new Thread(new Runnable() {
-		       
+		    	   String msg;
 		          @Override
 		          public void run() {
 		             try {
-		            	msgin = in.readLine();
+		            	msg = in.readLine();
 		                //tant que le client est connecté
-		                while(msgin!=null){
-		                   //System.out.println("Client : "+msgin);
-		                   msgin = in.readLine();
+		                while(msg!=null){
+		                	System.out.println("Client : "+msg);
+		                	msg = in.readLine();
 		                   if (ID==1)
 			                {
 		                	   pan.setPosA(posXJ2);
@@ -88,7 +88,6 @@ public class Serveur extends Thread {
 		 	                	pan.setPosY(posPalletY);
 		 	                	pan.setPosX(posPalletX);
 			                }
-			               msgout=msgin;
 		                }
 		                //sortir de la boucle si le client a déconecté
 		                System.out.println("Client déconecté");

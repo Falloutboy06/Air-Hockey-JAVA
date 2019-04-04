@@ -123,11 +123,9 @@ public class pageclient extends JFrame {
 			clientSocket = new Socket(IP,port);
 			BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			PrintStream out = new PrintStream(clientSocket.getOutputStream());
-			
 			Thread envoyer = new Thread(new Runnable() {
 	             String msg;
 	              public void run() {
-
 	                while(true){
 		                if (ID==1)
 		                {
@@ -141,7 +139,7 @@ public class pageclient extends JFrame {
 			                posXJ2 = (int)point.getX()-150;
 			                posYJ2 = (int)point.getY()-250;
 		                }
-	                  msg = Messagerie.getText();
+		              msg=sc.nextLine();
 	                  out.println(msg);
 	                  out.flush();
 	                }
@@ -155,7 +153,8 @@ public class pageclient extends JFrame {
 	               try {
 	                 msg = in.readLine();
 	                 while(msg!=null){
-	                	 
+	                	 System.out.println("Serveur : "+msg);
+	                	 msg = in.readLine();
 	                	 if (ID==1)
 	 	                {
 	 	                	pan.setPosA(posXJ2);
@@ -168,9 +167,7 @@ public class pageclient extends JFrame {
 	 	                	pan.setPosY(posPalletY);
 	 	                	pan.setPosX(posPalletX);
 	 	                }
-	 	                msg = in.readLine();
-	 	                Messagerie.setText(msg);
-	 	                System.out.println(msg);
+	 	                
 	                 }
 	                 System.out.println("Serveur déconecté");
 	                 out.close();
@@ -280,7 +277,6 @@ public class pageclient extends JFrame {
 		}
 		else if(ID==2) {
 			ConnexionServeur();
-			
 		}
 		initialize();
 		pageclient.this.frame.setVisible(true);
@@ -311,7 +307,7 @@ public class pageclient extends JFrame {
 	}
 	private void TestVictoire()
 	{
-		if(PointJ1==10) {
+		if(PointJ1==3) {
 			String st1 = "Victoire Joueur 1 !!!";
 			JOptionPane.showMessageDialog(null, st1);
 			PointJ1=0;
@@ -325,7 +321,7 @@ public class pageclient extends JFrame {
 			bouton.setEnabled(true);
 			bouton2.setEnabled(false);
 			
-		}else if(PointJ2==10){
+		}else if(PointJ2==3){
 			String st2 = "Victoire Joueur 2 !!!";
 			JOptionPane.showMessageDialog(null, st2);
 			PointJ1=0;
